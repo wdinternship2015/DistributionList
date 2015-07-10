@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="DistributionList" style="background-color:#4FA5C9; padding-left: 1em; padding-right: 1em; padding-bottom: 1em;">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/> 
+  <link rel="stylesheet" type="text/css" href="css/example.css"/>
+  <head>
+  </head>
+  <script type="text/javascript" src="js/angular.min.js"></script>
+  <script type="text/javascript" src="js/angular-resource.js"></script> 
+  <script type="text/javascript" src="js/app.js"></script>
+
+  <script type="text/javascript" src="js/modalCtrl.js"></script>
+  <script type="text/javascript" src="js/ui-bootstrap-tpls-0.13.0.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-mocks/angular-mocks.js"></script>
+
+<div id="topBanner" style="background-color:#4FA5C9; padding-left: 5em" >
+
+	<object type="image/svg+xml" data="images/workdayLogo.svg"></object>
+	
+	 <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Instructions</h3>
+        </div>
+        <div class="modal-body" style="background-color:#fafafa">
+          <h4 style="font-size:12px"> stuff </h4>
+          
+			<br><br>
+          <h8 style="font-size:12px">&nbsp;&nbsp;&nbsp;&nbsp;*Click <button class="btn-xs btn-danger" disabled>Help!</button> to view instructions.  </h8> 
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" id="modalOK" ng-click="ok()">OK</button>
+        </div>
+    </script>
+    <button class="btn-xs btn-danger pull-right" ng-click="open()" title="Usage Instructions">Help!</button>
+</div>
+
+<div id="testServerConnection" style="background-color:#fafafa">
+	<button id="testServerGet" onclick="pingServerGET()">test GET</button><button id="testServerPOST" onclick="pingServerPOST()">test POST</button>
+</div>
+</html>
