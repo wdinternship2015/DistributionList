@@ -1,6 +1,14 @@
-<div class="row well" style="background-color:#fafafa">
-       
-            <h4>View 3</h4>
-               
-        
-    </div>
+<div class="row well" style="background-color: #fafafa">
+
+	<h4>View 3</h4>
+
+	<p>Test Workers data size: {{workersize}}</p>
+	<p>Workers emails:</p>
+	<div ng-repeat="worker in workers">{{worker.primaryWorkEmail}}</div>
+	<br><br>
+	<p>Workers IDs:</p>
+	<label ng-repeat="worker in workers">
+  	<input type="checkbox" checklist-model="user.roles" checklist-value="role.id"> {{role.text}}
+	</label>
+
+</div>
