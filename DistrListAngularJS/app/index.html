@@ -1,39 +1,51 @@
 <!DOCTYPE html>
-<html ng-app="DistributionList" style="background-color:#4FA5C9; padding-left: 1em; padding-right: 1em; padding-bottom: 1em;">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/> 
-  <link rel="stylesheet" type="text/css" href="css/example.css"/>
-  <head>
-  </head>
-  <script type="text/javascript" src="js/angular.min.js"></script>
-  <script type="text/javascript" src="js/angular-resource.js"></script> 
-  <script type="text/javascript" src="js/app.js"></script>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>Distribution List Web Stub</title>
+<meta name="generator" content="Bootply" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <script type="text/javascript" src="js/modalCtrl.js"></script>
-  <script type="text/javascript" src="js/ui-bootstrap-tpls-0.13.0.min.js"></script>
-  <script type="text/javascript" src="bower_components/angular-mocks/angular-mocks.js"></script>
+<script type="text/javascript" src="resourceJS/angular.min.js"></script>
+<script type="text/javascript" src="resourceJS/angular-resource.js"></script>
+<script type="text/javascript" src="resourceJS/ui-bootstrap-tpls-0.13.0.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-mocks/angular-mocks.js"></script>
 
-<div id="topBanner" style="background-color:#4FA5C9; padding-left: 5em" >
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/example.css" />
+<link href="css/styles.css" rel="stylesheet">
 
-	<object type="image/svg+xml" data="images/workdayLogo.svg"></object>
-	
-	 <script type="text/ng-template" id="myModalContent.html">
-        <div class="modal-header">
-            <h3 class="modal-title">Instructions</h3>
-        </div>
-        <div class="modal-body" style="background-color:#fafafa">
-          <h4 style="font-size:12px"> stuff </h4>
-          
-			<br><br>
-          <h8 style="font-size:12px">&nbsp;&nbsp;&nbsp;&nbsp;*Click <button class="btn-xs btn-danger" disabled>Help!</button> to view instructions.  </h8> 
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" id="modalOK" ng-click="ok()">OK</button>
-        </div>
-    </script>
-    <button class="btn-xs btn-danger pull-right" ng-click="open()" title="Usage Instructions">Help!</button>
-</div>
+<!-- Vendor: Javascripts -->
+<script	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-<div id="testServerConnection" style="background-color:#fafafa">
-	<button id="testServerGet" onclick="pingServerGET()">test GET</button><button id="testServerPOST" onclick="pingServerPOST()">test POST</button>
-</div>
+<!-- Vendor: Angular, followed by our custom Javascripts -->
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min.js"></script>
+
+<!-- Our Website Javascripts -->
+<script src="js/main.js"></script>
+<script src="js/PageCtrlView1.js"></script>
+<script src="js/PageCtrlView2.js"></script>
+<script src="js/PageCtrlView3.js"></script>
+<script src="js/PageCtrlView4.js"></script>
+<script src="js/PageCtrlView5.js"></script>
+</head>
+
+<body ng-app="DistributionList">
+
+	<div ng-include='"templates/header.html"'></div>
+	<div class="container">
+		<div class="row row-offcanvas row-offcanvas-left">
+			<div ng-include='"templates/sidebar.html"'></div>
+			<div class="col-sm-9 col-md-10 main"
+				style="background-color: #fafafa;" ng-view></div>
+		</div>
+	</div>
+	<div ng-include='"templates/footer.html"'></div>
+
+
+</body>
+
+
 </html>

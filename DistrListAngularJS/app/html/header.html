@@ -1,0 +1,35 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container">
+<div id="topBanner" style="background-color:#4FA5C9; padding-left: 5em" >
+
+	<object type="image/svg+xml" data="images/workdayLogo.svg"></object>
+	
+	 <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Instructions</h3>
+        </div>
+        <div class="modal-body" style="background-color:#fafafa">
+          <h4 style="font-size:12px"> stuff </h4>
+          
+			<br><br>
+          <h8 style="font-size:12px">&nbsp;&nbsp;&nbsp;&nbsp;*Click <button class="btn-xs btn-danger" disabled>Help!</button> to view instructions.  </h8> 
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" id="modalOK" ng-click="ok()">OK</button>
+        </div>
+    </script>
+    <button class="btn-xs btn-danger pull-right" ng-click="open()" title="Usage Instructions">Help!</button>
+</div>
+    <!-- etc… -->
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+<ul>
+<li><a href="<span class="highlight">#/services</span>">Services</a></li>
+<li><a href="<span class="highlight">#/pricing</span>">Pricing Table</a></li>
+<li><a href="<span class="highlight">#/about</span>">About</a></li>
+</ul>
+    </div>
+    <!-- /.navbar-collapse -->
+</div>
+<!-- /.container -->
+</nav>
