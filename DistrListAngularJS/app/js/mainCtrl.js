@@ -3,7 +3,7 @@
  * Main AngularJS Web Application
  */
 var app = angular.module('DistributionList', [ 'ngRoute', 
-        'ownedByMeModule', 'memberOfModule', 'view3Module', 'view4Module', 'view5Module', 
+        'ownedByMeModule', 'memberOfModule', 'view3Module', 'view4Module', 'view5Module', 'sidebarModule','searchListModule',//'dataSharingtModule'
 ]);
 
 /**
@@ -12,10 +12,12 @@ var app = angular.module('DistributionList', [ 'ngRoute',
 app.config(['$routeProvider', function ($routeProvider) {
   $routeProvider
     // Home
-    .when("/", {templateUrl: "partials/home.html", controller: "PageCtrlHome"})
+    .when("/", {templateUrl: "partials/ownedByMe.html", controller: "ownedByMeCtrl"})
     // Pages
     .when("/ownedByMe", {templateUrl: "partials/ownedByMe.html", controller: "ownedByMeCtrl"})
     .when("/memberOf", {templateUrl: "partials/memberOf.html", controller: "memberOfCtrl"})
+    .when("/myList", {templateUrl: "partials/ownedByMe.html", controller: "ownedByMeCtrl"})
+    .when("/searchList", {templateUrl: "partials/searchList.html", controller: "searchListCtrl"})   
     .when("/view3", {templateUrl: "partials/view3.html", controller: "PageCtrlView3"})
     .when("/view4", {templateUrl: "partials/view4.html", controller: "PageCtrlView4"})
     .when("/view5", {templateUrl: "partials/view5.html", controller: "PageCtrlView5"})
@@ -24,17 +26,26 @@ app.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 app.factory('shareDataService', function() {
-	 var savedData = {}
-	 function set(data) {
+	 var savedData = {};
+	 var topPanel;
+	 var set = function (data) {
 	   savedData = data;
-	 }
-	 function get() {
+	 };
+	 var get = function () {
 	  return savedData;
+	 };
+	 var setTopPanel = function (url) {
+		 topPanel = url;
+	 }
+	 var getTopPanel = function() {
+		 return topPanel;
 	 }
 
 	 return {
 	  set: set,
-	  get: get
+	  get: get,
+	  setTopPanel: setTopPanel,
+	  setTopPanel: getTopPanel
 	 }
 
 });

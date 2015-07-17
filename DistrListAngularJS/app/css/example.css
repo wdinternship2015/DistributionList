@@ -1,4 +1,4 @@
-@import url('http://getbootstrap.com/dist/css/bootstrap.css');
+/*@import url('http://getbootstrap.com/dist/css/bootstrap.css');*/
 
 .fixed { height:300px; overflow:hidden; background:orange; }
 .scrollit { height:300px;border-style:solid; border-width:2px; border-color:black;}

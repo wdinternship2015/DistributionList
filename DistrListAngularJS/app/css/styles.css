@@ -18,7 +18,7 @@ footer {
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 40px;
-  background-color: #4FA5C9;
+  background-color: #35B5ED;
 }
 /*
  * Off Canvas
@@ -57,7 +57,7 @@ footer {
   background-color: #f5f5f5;
   margin-right: -15px;
   margin-bottom: 20px;
-  margin-left: -15px;
+  margin-left: 20px;
 }
 .nav-sidebar > li > a {
   padding-right: 20px;
@@ -73,13 +73,12 @@ footer {
  */
 
 .main {
-  padding: 20px;
-  background-color: #fff;
+  background-color: #fafafa;
 }
 @media (min-width: 768px) {
   .main {
     padding-right: 40px;
-    padding-left: 40px;
+    padding-left: 5px;
   }
 }
 .main .page-header {

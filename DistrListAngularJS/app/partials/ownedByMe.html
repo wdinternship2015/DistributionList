@@ -1,8 +1,19 @@
 
 
-<div class="row well" style="background-color:#fafafa" >
-       
-            <h4>Owned by me view</h4>
-               
-        
-    </div>
+<div>
+
+	<h4>Owned by me view</h4>
+
+
+	<p>My Workers:</p>
+	<table class="table" style="border-spacing: 0px">
+		<tr>
+			<th><input type="checkbox" ng-model="master"></th>
+			<th><label>Worker ID</label></th>
+		</tr>
+		<tr ng-repeat="worker in workers">
+		  	<td><input type="checkbox" checklist-model="deleteWorker.workers" checklist-value="worker" ng-checked="master"></td>
+		  	<td>{{worker.id}} </td>
+	  	</tr>
+	</table>
+</div>
