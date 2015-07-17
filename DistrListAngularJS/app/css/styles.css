@@ -2,10 +2,21 @@
  * Style tweaks
  * --------------------------------------------------
  */
-body {
-  padding-top: 50px;
+html, body {
+  /*padding-top: 50px;*/
   background-color: #f5f5f5;
-  height: 100%
+  height: 100%;
+  width: 100%;
+}
+.fill {
+    top: 40px;
+    left: 200px;
+    right: 0;
+    bottom: 60px;
+    position: absolute;
+    width: auto;
+    height: auto;
+    
 }
 footer {
   padding-left: 15px;
@@ -24,6 +35,7 @@ footer {
  * Off Canvas
  * --------------------------------------------------
  */
+ /*
 @media screen and (max-width: 768px) {
   .row-offcanvas {
     position: relative;
@@ -44,20 +56,20 @@ footer {
   .sidebar-offcanvas {
     position: absolute;
     top: 0;
-    width: 33%;
-    margin-left: 10px;
+    width: 180px;
+    margin-left: 20px;
     background-color:#fafafa; 
     height:100%;
   }
 }
-
+*/
 
 /* Sidebar navigation */
 .nav-sidebar {
   background-color: #f5f5f5;
-  margin-right: -15px;
-  margin-bottom: 20px;
-  margin-left: 20px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
 }
 .nav-sidebar > li > a {
   padding-right: 20px;
@@ -71,16 +83,40 @@ footer {
 /*
  * Main content
  */
-
+/*
 .main {
   background-color: #fafafa;
 }
 @media (min-width: 768px) {
   .main {
-    padding-right: 40px;
-    padding-left: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 20px;
   }
 }
 .main .page-header {
   margin-top: 0;
+}
+.main {
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+  }
+  */
+#main {
+        height: 100%;
+        width: 100%;
+        padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    background-color: #ffffff;
+}
+
+#main img {
+        max-width: none;
+}
+#section {
+    width:180px;
+    float:left;
+    padding:10px; 
 }

@@ -28,23 +28,26 @@
 <script src="js/mainCtrl.js"></script>
 <script src="js/OwnedByMeCtrl.js"></script>
 <script src="js/memberOfCtrl.js"></script>
+<script src="js/sidebarCtrl.js"></script>
 <script src="js/PageCtrlView3.js"></script>
 <script src="js/PageCtrlView4.js"></script>
 <script src="js/PageCtrlView5.js"></script>
+<script src="js/searchListCtrl.js"></script>
 </head>
 
 <body ng-app="DistributionList">
 
 	<div ng-include='"templates/header.html"'></div>
-	<div class="container">
-		<div class="row row-offcanvas row-offcanvas-left">
-			<div ng-include='"templates/sidebar.html"'></div>
-			<div class="col-sm-9 col-md-10 main"
-				style="background-color: #fafafa;" ng-view></div>
+
+	<div ng-model="topPanel"  ng-controller="sidebarCtrl">
+		<div ng-include='"templates/sidebar.html"'></div>
+		<div class="container fill" style="padding:10px">
+			<div ng-include src="topPanel.url" ></div>
+			<div id="main" style="overflow-y: scroll;" ng-view></div>
+			
 		</div>
 	</div>
-	<div ng-include='"templates/footer.html"'></div>
-
+	<!-- <div ng-include='"templates/footer.html"'></div>   -->	
 
 </body>
 
