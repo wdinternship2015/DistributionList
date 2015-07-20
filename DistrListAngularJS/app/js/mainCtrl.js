@@ -3,61 +3,53 @@
  * Main AngularJS Web Application
  */
 var app = angular.module('DistributionList', [ 'ngRoute', 
-        'ownedByMeModule', 'memberOfModule', 'view3Module', 'view4Module', 'view5Module', 'sidebarModule','searchListModule',//'dataSharingtModule'
+        'ownedByMeModule', 'memberOfModule', 'view3Module', 'view4Module', 'view5Module', 'searchListModule',//'dataSharingtModule'
 ]);
 
 /**
- * Configure the Routes
+ * ng-include routing
  */
-app.config(['$routeProvider', function ($routeProvider) {
-  $routeProvider
-    // Home
-    .when("/", {templateUrl: "partials/ownedByMe.html", controller: "ownedByMeCtrl"})
-    // Pages
-    .when("/ownedByMe", {templateUrl: "partials/ownedByMe.html", controller: "ownedByMeCtrl"})
-    .when("/memberOf", {templateUrl: "partials/memberOf.html", controller: "memberOfCtrl"})
-    .when("/myList", {templateUrl: "partials/ownedByMe.html", controller: "ownedByMeCtrl"})
-    .when("/searchList", {templateUrl: "partials/searchList.html", controller: "searchListCtrl"})   
-    .when("/view3", {templateUrl: "partials/view3.html", controller: "PageCtrlView3"})
-    .when("/view4", {templateUrl: "partials/view4.html", controller: "PageCtrlView4"})
-    .when("/view5", {templateUrl: "partials/view5.html", controller: "PageCtrlView5"})
-    // else 404
-    .otherwise("/404", {templateUrl: "partials/404.html", controller: "PageCtrlHome"});
-}]);
+app.controller('mainCtrol', function ($scope,shareDataService, $log/*, $location, $http */) {
+	  console.log("mainCtrol reporting for duty.");
+
+	  $scope.topPanelUrl = 'partials/myListTopPanel.html';
+	  $scope.viewUrl = 'partials/ownedByMe.html';
+	  $scope.sidebarUrl = 'templates/sidebar.html';
+	  
+	  $scope.searchDList = function() {
+	  	$scope.topPanelUrl = 'partials/searchListTopPanel.html';
+	  	$scope.viewUrl = 'partials/searchList.html';
+	  }
+	  $scope.myDList = function() {
+	 	$scope.topPanelUrl = 'partials/myListTopPanel.html';
+	 	$scope.viewUrl = 'partials/ownedByMe.html';
+	  }
+	  $scope.ownedByMe = function() {
+		$scope.viewUrl = 'partials/ownedByMe.html';
+	  }
+	  $scope.memberOf = function() {
+		$scope.viewUrl = 'partials/memberOf.html';
+	  }
+	  
+});
+
 
 app.factory('shareDataService', function() {
 	 var savedData = {};
-	 var topPanel;
+	 
 	 var set = function (data) {
 	   savedData = data;
 	 };
+	 
 	 var get = function () {
 	  return savedData;
 	 };
-	 var setTopPanel = function (url) {
-		 topPanel = url;
-	 }
-	 var getTopPanel = function() {
-		 return topPanel;
-	 }
-
+	 
 	 return {
 	  set: set,
 	  get: get,
-	  setTopPanel: setTopPanel,
-	  setTopPanel: getTopPanel
 	 }
-
-});
-
-app.controller('PageCtrlHome', function ($scope,shareDataService/*, $location, $http */) {
-  console.log("PageCtrlHome reporting for duty.");
-  var jsonObj = JSON.parse(testWorkers);
-  $scope.total = jsonObj.total;
-  $scope.workers = jsonObj.data;
-  $scope.datasize = $scope.workers.length;
-  shareDataService.set($scope.workers);
-  
+	 
 });
 
 

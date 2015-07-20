@@ -1,19 +1,29 @@
 
 
-<div>
+<div ng-controller="ownedByMeCtrl">
 
 	<h4>Owned by me view</h4>
+	<div id="createNewGroup">
+		<button ng-click="newGroup()">Create New Group</button>
+		<div ng-include src="newGroupViewUrl" ng-show="showCreateNewGroup"></div>
+	</div>
 
 
-	<p>My Workers:</p>
-	<table class="table" style="border-spacing: 0px">
+	<table class="table table-striped workers" " style="width: auto;">
+		
+		<thead>
 		<tr>
-			<th><input type="checkbox" ng-model="master"></th>
-			<th><label>Worker ID</label></th>
+			<th class="col-sm-1"><input type="checkbox" ng-model="master"></th>
+			<th class="col-sm-5"><label>Group ID</label></th>
+			<th class="col-sm-1"></th>
 		</tr>
-		<tr ng-repeat="worker in workers">
-		  	<td><input type="checkbox" checklist-model="deleteWorker.workers" checklist-value="worker" ng-checked="master"></td>
-		  	<td>{{worker.id}} </td>
+		</thead>
+		<tr ng-repeat="group in groups">
+		  	<td><input type="checkbox" checklist-model="deleteGroup.groups" checklist-value="group" ng-checked="master"></td>
+		  	<td><a href="#" ng-click="showDetails = ! showDetails">{{group.id}} </a>
+		  		<div ng-if="editGroupDetail()" ng-include src="groupDetailUrl"></div>
+		  	</td>
+		  	<td><button ng-click="editGroupDetail()"> Edit </button>
 	  	</tr>
 	</table>
 </div>
