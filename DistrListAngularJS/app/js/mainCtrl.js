@@ -15,6 +15,7 @@ app.controller('mainCtrol', function ($scope,shareDataService, $log/*, $location
 	  $scope.topPanelUrl = 'partials/myListTopPanel.html';
 	  $scope.viewUrl = 'partials/ownedByMe.html';
 	  $scope.sidebarUrl = 'templates/sidebar.html';
+
 	  
 	  $scope.searchDList = function() {
 	  	$scope.topPanelUrl = 'partials/searchListTopPanel.html';
@@ -30,6 +31,9 @@ app.controller('mainCtrol', function ($scope,shareDataService, $log/*, $location
 	  $scope.memberOf = function() {
 		$scope.viewUrl = 'partials/memberOf.html';
 	  }
+	  $scope.manageGroup = function() {
+		$scope.viewUrl = 'partials/groupDetails.html';
+	 }
 	  
 });
 

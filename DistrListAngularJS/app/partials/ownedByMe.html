@@ -3,27 +3,66 @@
 <div ng-controller="ownedByMeCtrl">
 
 	<h4>Owned by me view</h4>
+	<p>group size: {{groups.length}}</p>
+	<p>{{groups|json}}</p>
 	<div id="createNewGroup">
 		<button ng-click="newGroup()">Create New Group</button>
-		<div ng-include src="newGroupViewUrl" ng-show="showCreateNewGroup"></div>
+		
+		<div style="border: 2px solid darkblue;padding: 10px;" ng-show="showCreateNewGroup">
+			<form name="createNewGroup" ng-init="aGroup.visibility='public'">
+				<table>
+					<tr>
+						<td>Group Name:</td>
+						<td><input type="text" ng-model="aGroup.name" /></td>
+					</tr>
+					<tr>
+						<td>Alias:</td>
+						<td><input type="email" ng-model="aGroup.alias" /></td>
+					</tr>
+					<tr>
+						<td>Description:</td>
+						<td><input type="text" ng-model="aGroup.description" /></td>
+					</tr>
+					<tr>
+						<td>Private:</td>
+						<td><input type="checkbox"  ng-checked="isPrivate" ng-model="aGroup.visibility" ng-true-value="'Private'" ng-false-value="'Public'"/></td>
+					</tr>
+
+					<tr>
+						<td>
+							<button type="submit" ng-click="addNewGroup()">Submit</button>
+						
+						</td>
+						<td>
+							<button ng-click="resetNewGroupForm()">Reset</button>
+							<button ng-click="cancelAddNewGroup()">Cancel</button>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div> 	
+		
+		
 	</div>
 
 
-	<table class="table table-striped workers" " style="width: auto;">
-		
+	<table class="table table-striped workers" style="width: auto;">		
 		<thead>
 		<tr>
-			<th class="col-sm-1"><input type="checkbox" ng-model="master"></th>
-			<th class="col-sm-5"><label>Group ID</label></th>
-			<th class="col-sm-1"></th>
+			<th class="col-sm-1"><input type="checkbox" ng-model="master">&nbsp<button>Delete</button></th>
+			<th class="col-sm-3"><label>Group ID</label></th>
+			<th class="col-sm-1">Visibility</th>
 		</tr>
 		</thead>
 		<tr ng-repeat="group in groups">
 		  	<td><input type="checkbox" checklist-model="deleteGroup.groups" checklist-value="group" ng-checked="master"></td>
-		  	<td><a href="#" ng-click="showDetails = ! showDetails">{{group.id}} </a>
-		  		<div ng-if="editGroupDetail()" ng-include src="groupDetailUrl"></div>
+		  	<td><a href="#" ng-click="showDetails = ! showDetails">{{group.name}} </a>
+		  		<div ng-show="showDetails">
+		  			<p>{{group.description}}</p>
+		  			<p><button ng-click="manageGroup()"> Manage </button>
+		  		</div>
 		  	</td>
-		  	<td><button ng-click="editGroupDetail()"> Edit </button>
+		  	<td>{{group.visibility}}</td>
 	  	</tr>
 	</table>
 </div>
