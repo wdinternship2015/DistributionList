@@ -1,26 +1,6 @@
-<div ng-controller="memberOfCtrl">
-
-	<h4>Member Of View</h4>
-
-	<table class="table table-striped" style="width: auto;">		
-		<thead>
-		<tr>
-			<th class="col-sm-1"><!--  <input type="checkbox" ng-model="master">&nbsp-->
-				<button ng-click="unsubscribeFromGroups()">Unsubscribe</button></th>
-			<th class="col-sm-3"><label>Group Name</label></th>
-			<th class="col-sm-1">Visibility</th>
-		</tr>
-		</thead>
-		<tr ng-repeat="group in memberOfGroups">
-		  	<td><input type="checkbox" checklist-model="selectedGroups.groups" checklist-value="group" ng-checked="master"></td>
-		  	<td><a href="#" ng-click="showDetails = ! showDetails">{{group.name}} </a>
-		  		<div ng-show="showDetails">
-		  			<p>{{group.description}}</p>
-		  			<p><button > Something? </button></p>
-		  		</div>
-		  	</td>
-		  	<td>{{group.visibility}}</td>
-	  	</tr>
-	</table>
-
-</div>
+<div class="row well" style="background-color:#fafafa">
+       
+            <h4>Member Of View</h4>
+               
+        
+    </div>
