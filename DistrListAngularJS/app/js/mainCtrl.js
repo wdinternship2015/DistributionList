@@ -2,9 +2,14 @@
 /**
  * Main AngularJS Web Application
  */
-var app = angular.module('DistributionList', [ 'ngRoute', 
-        'ownedByMeModule', 'memberOfModule', 'view3Module', 'view4Module', 'view5Module', 'searchListModule',//'dataSharingtModule'
+var app = angular.module('DistributionList', [ //'ngRoute', 
+        'ownedByMeModule', 'memberOfModule', 'searchListModule', /*'dataSharingtModule',*/
 ]);
+
+angular.module('ownedByMeModule', [ 'checklist-model' ]);
+angular.module('memberOfModule', [ 'checklist-model' ]);
+angular.module('searchListModule', [ 'checklist-model' ]);
+	
 
 /**
  * ng-include routing
@@ -48,14 +53,25 @@ app.factory('shareDataService', function() {
 	 var get = function () {
 	  return savedData;
 	 };
+
+	 var pickedGroup = {};
 	 
+	 var setPickedGroup = function (data) {
+		 pickedGroup = data;
+	 };
+	 
+	 var getPickedGroup = function () {
+	  return pickedGroup;
+	 };
+
 	 return {
 	  set: set,
 	  get: get,
+	  setPickedGroup: setPickedGroup,
+	  getPickedGroup: getPickedGroup,
 	 }
 	 
 });
-
 
 
 

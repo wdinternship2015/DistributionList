@@ -1,21 +1,76 @@
-<div style="border: 2px solid darkblue;padding: 10px;">
+<div ng-controller="groupDetailsCtrl">
 
-<table class="table table-striped" style="width: auto;">
-		
+	<div ng-show="showGroupInfo">
+		<h3>{{thisGroup.name}}     		<button class="btn btn-xs" ng-click="showGroupInfo = ! showGroupInfo"><font size="2">Edit</font></button></h3>
+		<h5>{{thisGroup.alias}}</h5>
+		<p>{{thisGroup.description}}</p>
+		<p>{{thisGroup.visibility}}</p>
+
+	</div>
+	<div style="border: 2px solid darkblue;padding: 10px;" ng-show="! showGroupInfo">
+		<form name="createNewGroup" ng-init="thisGroup.visibility">
+			<table>
+				<tr>
+					<td>Group Name:</td>
+					<td><input type="text" ng-model="thisGroup.name" value="thisGroup.name"></td>
+				</tr>
+				<tr>
+					<td>Alias:</td>
+					<td><input type="email" ng-model="thisGroup.alias" value="thisGroup.alias"/></td>
+				</tr>
+				<tr>
+					<td>Description:</td>
+					<td><input type="text" ng-model="thisGroup.description" value="thisGroup.description"/></td>
+				</tr>
+				<tr>
+					<td>Private:</td>
+					<td><input type="checkbox"  ng-checked="thisGroup.visibility === 'Private'" ng-model="thisGroup.visibility" ng-true-value="'Private'" ng-false-value="'Public'"/></td>
+				</tr>
+
+				<tr>
+					<td>
+						<button ng-click="saveGroupDetails()">Save</button>
+					
+					</td>
+					<td></td>
+				</tr>
+			</table>
+		</form>
+	</div> 	
+	<br>
+<!-- 
+	<p>selected group size: {{selectedMembers.members.length}}</p>
+	<p>{{selectedMembers.members|json}}</p>
+-->	
+	<p>
+		Add members: <input type="text">
+		<button>Add</button>
+	</p>
+	<br> <br>
+
+	<table class="table table-striped" style="width: auto;">
+
 		<thead>
-		<tr>
-			<th class="col-sm-1"><input type="checkbox" ng-model="memberMaster"></th>
-			<th class="col-sm-4"><label>Information</label></th>
-			<th class="col-sm-1"></th>
-		</tr>
+			<tr>
+				<th class="col-sm-1"><!--  <input type="checkbox" ng-model="memeberMaster">&nbsp-->
+					<button ng-click="removeMembers()">Remove</button></th>
+				<th class="col-sm-4"><label>Members</label></th>
+				<th class="col-sm-1"></th>
+			</tr>
 		</thead>
-<!-- 		<tr ng-repeat="worker in workers">
-		  	<td><input type="checkbox" checklist-model="deleteWorker.workers" checklist-value="worker" ng-checked="memberMaster"></td>
-		  	<td>detail
-		  	</td>
-		  	<td><button> action </button>
-	  	</tr>
- -->
-</table>
-<button ng-click="ownedByMe()">Done!</button>
+		<tr ng-repeat="member in thisGroup.members">
+			<td><input type="checkbox"
+				checklist-model="selectedMembers.members" checklist-value="member"
+				ng-checked="memeberMaster">
+			</td>
+			<td><a href="#" ng-click="showDetails = ! showDetails">{{member.name}}</a>
+				<div ng-show="showDetails">
+					<p>{{member.org}}</p>
+					<button ng-click="viewMemberDetails(member)"> View Profile </button>
+				</div>
+			</td>
+			<td></td>
+		</tr>
+	</table>
+	<button ng-click="ownedByMe()">Done!</button>
 </div>

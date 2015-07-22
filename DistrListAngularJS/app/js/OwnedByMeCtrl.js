@@ -1,36 +1,44 @@
-angular.module('ownedByMeModule', [ 'checklist-model' ]).controller('ownedByMeCtrl', function($scope, shareDataService, $log) {
-	console.log("ownedByMeCtrl reporting for duty.");
-
-	$scope.groups = testGroups;
-	$scope.datasize = $scope.groups.length;
+angular.module('ownedByMeModule').controller('ownedByMeCtrl', function($scope, shareDataService, $log) {
 	
 	$scope.showDetails = false;
 	$scope.showCreateNewGroup = false;
 	
+	console.log("ownedByMeCtrl reporting for duty.");
+	$scope.groups = testGroups;
+	$scope.datasize = $scope.groups.length;
 	shareDataService.set($scope.groups);
 
-	$scope.deleteGroup = {
-
+//make REST call onload here to get distribution lists owned by me	
+	$scope.getOwnedByMeGroups = function(scope)  {
+		
+	};
+	
+//make REST call to delete selectedGroups
+	$scope.deleteMyGroups = function(scope)  {
+		
+	};
+	
+	$scope.selectedGroups = {
+		//add user id?
+		groups :[]
 	};
 	
 	$scope.newGroup = function(scope) {
 		$scope.showCreateNewGroup = true;
 		$scope.isPrivate = false;
-//		$scope.resetNewGroupForm();
-//		$scope.aGroup.visibility = "";
-
 	};
 
 	
 	$scope.addNewGroup = function(scope) {
-
 		$scope.aGroup.id = $scope.aGroup.name;		
 		var tempGroup = JSON.stringify($scope.aGroup);
-
 		$scope.groups.push(JSON.parse(tempGroup));
+		
+		//REST call go here to submit form 
+		
 		$scope.resetNewGroupForm();
 		$scope.showCreateNewGroup = ! $scope.showCreateNewGroup;
-
+		
 	};
 	
 	$scope.resetNewGroupForm = function(scope) {
@@ -51,6 +59,11 @@ angular.module('ownedByMeModule', [ 'checklist-model' ]).controller('ownedByMeCt
 		$scope.showCreateNewGroup = ! $scope.showCreateNewGroup;				
 	};
 	
+	$scope.editGroupDetails = function(aGroup) {
+		//REST call to get information by aGroup.id
+		shareDataService.setPickedGroup(aGroup);
+		$scope.manageGroup();
+	};
 
 });
 
@@ -64,4 +77,4 @@ angular.module('ownedByMeModule', [ 'checklist-model' ]).controller('ownedByMeCt
 
 
 
-var testGroups = [{"id": "007", "name": "test name", "alias": "test alias", "description": "test description", "visibility": "Public"}];
+var testGroups = [{"id": "007", "name": "test name", "alias": "test alias", "description": "test description", "visibility": "Public", "members": [{"name":"Alice", "org": "WD Alice"}, {"name":"Bob", "org": "WD Bob"}, {"name":"Charlie", "org": "WD Charlie"}, {"name":"Dilbert", "org": "WD Dilbert"}]}];

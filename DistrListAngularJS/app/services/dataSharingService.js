@@ -1,6 +1,4 @@
-var dataMod = angular.module('dataSharingtModule', []); 
-
-dataMod.factory('shareDataService', function() {
+ angular.module('DistributionList').factory('shareDataService', function() {
 	 var savedData = {}
 	 function set(data) {
 	   savedData = data;
