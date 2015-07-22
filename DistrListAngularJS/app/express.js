@@ -83,6 +83,9 @@ if (cluster.isMaster) {
         app.use('/images', express.static(document_root + '/images'));
         app.use('/html', express.static(document_root + '/html'));
         app.use('/bower_components', express.static(document_root + '/bower_components'));     
+        app.use('/services', express.static(document_root + '/services'));        
+
+
  
 	// handle explicit path index.html
 	app.get('/index.html', function(req, res) {
