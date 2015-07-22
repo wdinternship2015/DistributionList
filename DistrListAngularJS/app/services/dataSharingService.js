@@ -1,21 +1,40 @@
-<<<<<<< Updated upstream
  angular.module('DistributionList').factory('shareDataService', function() {
-=======
-var dataMod = angular.module('dataSharingModule', []); 
-
-dataMod.factory('shareDataService', function() {
->>>>>>> Stashed changes
-	 var savedData = {}
-	 function set(data) {
+	 var savedData = {};
+	 
+	 var set = function (data) {
 	   savedData = data;
-	 }
-	 function get() {
+	 };
+	 
+	 var get = function () {
 	  return savedData;
-	 }
+	 };
 
+	 var pickedGroup = {};
+	 
+	 var setPickedGroup = function (data) {
+		 pickedGroup = data;
+	 };
+	 
+	 var getPickedGroup = function () {
+	  return pickedGroup;
+	 };
+
+	 var searchResult = {};
+	 
+	 var setSearchResult = function (data) {
+		 searchResult = data;
+	 };
+	 
+	 var getSearchResult = function () {
+	  return searchResult;
+	 };
 	 return {
 	  set: set,
-	  get: get
+	  get: get,
+	  setPickedGroup: setPickedGroup,
+	  getPickedGroup: getPickedGroup,
+	  setSearchResult: setSearchResult,
+	  getSearchResult: getSearchResult,
 	 }
-
+	 
 });

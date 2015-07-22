@@ -1,10 +1,10 @@
-<div style="height: 40px;display:table-cell; vertical-align:middle" align="bottom" style="padding:10px">
+<div style="height: 40px;display:table-cell; vertical-align:middle" align="bottom" style="padding:10px" ng-controller="searchListCtrl">
 	<ul class="nav navbar-nav navbar-center">
 		<li>
-			Search Distribution Lists: <input type="text">
+			Search Distribution Lists: <input type="text" ng-model="searchParam">
 		</li>
 		<li>
-			<button style="width:100px">Search</button>
+			<button style="width:100px" ng-click="search(searchParam)">Search</button>
 		</li>
 	</ul>
 
