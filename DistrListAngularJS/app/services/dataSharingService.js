@@ -1,4 +1,10 @@
+<<<<<<< Updated upstream
  angular.module('DistributionList').factory('shareDataService', function() {
+=======
+var dataMod = angular.module('dataSharingModule', []); 
+
+dataMod.factory('shareDataService', function() {
+>>>>>>> Stashed changes
 	 var savedData = {}
 	 function set(data) {
 	   savedData = data;
