@@ -1,0 +1,32 @@
+<!-- <div class="sidebar-offcanvas" id="sidebar" role="navigation" > -->
+<div id="section" role="navigation">
+	<br><br><br>
+	<ul class="nav nav-sidebar">
+<!-- 	<li>
+			<button style="width: 160px" ng-click="searchDList()">
+				<font size="2">Search Distribution Lists</font>
+			</button>
+		</li>
+	</ul>
+	<ul class="nav nav-sidebar">
+		<li>
+			<button style="width: 160px" ng-click="myDList()">
+				<font size="2">My Distribution Lists</font>
+			</button>
+		</li>     
+-->	
+		<li>
+			<div class="input-group">
+				<div class="btn-group-vertical btn-sm" data-toggle="buttons">
+					<label class="btn btn-primary btn-sm" ng-click="searchDList()">
+						<input type="radio" checked="checked" name="options" id="option1">
+						Search Distribution Lists </input>
+					</label> <label class="btn btn-primary btn-sm" ng-click="myDList()">
+						<input type="radio" name="options" id="option2"> My
+						Distribution Lists </input>
+					</label>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>

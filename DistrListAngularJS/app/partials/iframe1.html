@@ -1,10 +1,11 @@
 <html>
-  <script type="text/javascript" src="angular.min.js"></script>
-  <script type="text/javascript" src="angular-route.min.js"></script>
-  <div ng-app="myApp" ng-controller="iframeCtrl" >
-    <button id="testbutton"   authenticate>Authenticate</button>
-  </div>
+  <div>
+    <button id="testbutton"  authenticate>Authenticate</button>
   
+  
+
+  </div>
+ <!--  
   <script> 
     var app = angular.module('myApp', ['ngRoute']);
     app.controller('iframeCtrl', function($scope){
@@ -17,7 +18,7 @@
     //template:'<a href="https://i-e0efe117.workdaysuv.com/super/authorize?response_type=token&client_id=MjA0YjQzY2UtMDQ2Yy00ZTQ5LTg0NGEtY2I4M2QzMjM4Njgy" ng-click="submit()"></a>',    
     link: function(scope, element, attrs){
       element.on('click', function(onClickEvent){
-        angular.element(document.querySelector('#testbutton')).append($compile('<a id=token href="https://i-e0efe117.workdaysuv.com/super/authorize?response_type=token&client_id=MjA0YjQzY2UtMDQ2Yy00ZTQ5LTg0NGEtY2I4M2QzMjM4Njgy""></a>')(scope));
+        angular.element(document.querySelector('#testbutton')).append($compile('<a id=token href="https://i-0caa36fb.workdaysuv.com/super/authorize?response_type=token&client_id=Y2UzYjgyZjctYTNhYy00MjVhLWE3NTctNTRlYzBhOWIxNjRj""></a>')(scope));
         var elem = document.querySelector('#token');
         elem.click();
         //document.querySelector('#iframe2').style.display="block";
@@ -30,7 +31,7 @@
    
  
   </script>  
-
+--> 
 
 </html> 
 

@@ -78,11 +78,14 @@ if (cluster.isMaster) {
         app.use('/css',express.static(document_root + '/css'));     
         app.use('/components',express.static(document_root + '/components'));
         app.use('/partials', express.static(document_root + '/partials'));
-        app.use('/resourceJs',express.static(document_root + '/resourceJS'));
+        app.use('/resourceJS',express.static(document_root + '/resourceJS'));
         app.use('/templates',express.static(document_root + '/templates'));
         app.use('/images', express.static(document_root + '/images'));
         app.use('/html', express.static(document_root + '/html'));
         app.use('/bower_components', express.static(document_root + '/bower_components'));     
+        app.use('/services', express.static(document_root + '/services'));        
+
+
  
 	// handle explicit path index.html
 	app.get('/index.html', function(req, res) {
