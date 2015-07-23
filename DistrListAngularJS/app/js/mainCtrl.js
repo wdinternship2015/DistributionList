@@ -34,7 +34,7 @@ app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $lo
 	console.log('token length: ' + $scope.token.length);
 	if ($scope.token.length > 0) {
 
-	//	$window.location.href =  'https://localhost:8443/index.html';
+		$window.location.href =  'https://localhost:8443/#/index.html';
 		$scope.topPanelUrl = 'partials/myListTopPanel.html';
 		$scope.viewUrl = 'partials/ownedByMe.html';
 		$scope.sidebarUrl = 'partials/sidebar.html';
@@ -62,6 +62,7 @@ app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $lo
 	 }
 	  
 	  console.log('token: ' + $scope.token);
+	  
 	  $window.load = function(){
 /*	   var element = document.querySelector('#iframe1'); 
 	   //alert("Loading");
