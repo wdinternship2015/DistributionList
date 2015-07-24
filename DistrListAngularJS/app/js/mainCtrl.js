@@ -2,19 +2,21 @@
 /**
  * Main AngularJS Web Application
  */
-var app = angular.module('DistributionList', [ 'myDListModule', 'searchListModule' ]);
+var app = angular.module('DistributionList', [ 'ngStorage', 'myDListModule', 'searchListModule' ]);
 
-angular.module('myDListModule', [ 'checklist-model' ]);
-angular.module('searchListModule', [ 'checklist-model' ]);
+angular.module('myDListModule', [ 'ngStorage', 'checklist-model' ]);
+angular.module('searchListModule', [ 'ngStorage', 'checklist-model' ]);
 	
 
 /**
  * ng-include routing
  */
-app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $location/*, $http */) {
+app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $location, $localStorage/*, $http */) {
 	  console.log("mainCtrl reporting for duty.");
 
-	$scope.token = "";
+	  $scope.$storage = $localStorage.$default({
+          token: ""
+        });
 
 	var url = $location.path();
 	console.log('index.html url: ' + url);
@@ -24,10 +26,10 @@ app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $lo
 		var split1 = url.split("=");
 		var split2 = split1[1].split("&");
 		var token = split2[0];
-		shareDataService.setToken(token);
+		$scope.$storage.token = token;
 	}
 	  
-	$scope.token  = shareDataService.getToken();
+	  $scope.token = $scope.$storage.token;
 	console.log('token: ' + $scope.token); 
 	console.log('token length: ' + $scope.token.length);
 	if ($scope.token.length > 0) {
@@ -49,7 +51,7 @@ app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $lo
 		  
 	//other REST calls to logout?	  
 	 $scope.logout = function() {
-		shareDataService.setToken('');
+		 $scope.$storage.token = "";
 		$scope.viewUrl = 'partials/home.html';
 		$scope.sidebarUrl = '';
 		$scope.topPanelUrl = '';

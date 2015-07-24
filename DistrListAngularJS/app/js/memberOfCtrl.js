@@ -1,6 +1,6 @@
-angular.module('myDListModule').controller('memberOfCtrl', function ($scope, shareDataService, $log) {
+angular.module('myDListModule').controller('memberOfCtrl', function ($scope, shareDataService, $log, $localStorage) {
 	  console.log("memberOfCtrl reporting for duty.");
-	  
+	  //$scope.$storage.token
 	  $scope.memberOfGroups = shareDataService.get();
 	  
 //make REST call onload here to get distribution lists I am a member of	

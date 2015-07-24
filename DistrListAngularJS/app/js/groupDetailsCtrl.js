@@ -1,5 +1,5 @@
-angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, shareDataService, $log) {
-
+angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, shareDataService, $log, $localStorage) {
+	//$scope.$storage.token
 	$scope.thisGroup = shareDataService.getPickedGroup();
 	$scope.showGroupInfo = true;
 

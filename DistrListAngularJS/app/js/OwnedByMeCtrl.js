@@ -1,5 +1,5 @@
-angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, shareDataService, $log) {
-	
+angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, shareDataService, $log, $localStorage) {
+	//$scope.$storage.token
 	$scope.showDetails = false;
 	$scope.showCreateNewGroup = false;
 	
