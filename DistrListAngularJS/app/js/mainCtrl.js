@@ -39,23 +39,21 @@ app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $lo
 		$scope.viewUrl = 'partials/home.html';
 		console.log('home');
 	}	  
-	  
-	  $scope.searchDList = function() {
+
+	  $scope.searchDListView = function() {
 	  	$scope.viewUrl = 'partials/searchListView.html';
 	  }
-	  $scope.myDList = function() {
+	  $scope.myDListView = function() {
 	 	$scope.viewUrl = 'partials/myListView.html';
 	  }
-	  
-//other REST calls to logout?	  
+		  
+	//other REST calls to logout?	  
 	 $scope.logout = function() {
 		shareDataService.setToken('');
 		$scope.viewUrl = 'partials/home.html';
 		$scope.sidebarUrl = '';
 		$scope.topPanelUrl = '';
 	 }
-
-	  
 
 });
 

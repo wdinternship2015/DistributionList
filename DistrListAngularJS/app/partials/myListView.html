@@ -16,7 +16,10 @@
  <div ng-controller="myListViewCtrl">
 <div style="height: 40px;display:table-cell; vertical-align:middle" align="bottom" style="padding:10px" >
             <ul class="nav navbar-nav navbar-center">
-                 <div class="input-group">
+ 				<button id="ownedByMeBtn" style="width: 140px" class="btn btn-primary btn-sm" ng-click="ownedByMe()">  Owned by Me  </button>
+              	<button id="memberOfBtn" style="width: 140px" class="btn btn-primary btn-sm" ng-click="memberOf()"> Member of </button>
+ 
+ <!--               <div class="input-group">
                           <div class="btn-group btn-sm" data-toggle="buttons">
                             <label class="btn btn-primary btn-sm"   ng-click="ownedByMe()">
                               <input type="radio" checked="true" name="options" id="option1" required> Owned by Me </input>
@@ -26,8 +29,9 @@
                             </label>
                           </div>
                         </div> 
+ -->  
               </ul>
-              <ul><button id="testButton"> test </button></ul>
+ 
         </div>
         <div id="main" style="overflow-y: scroll;" ng-include src="contentUrl"></div>
 </div>
