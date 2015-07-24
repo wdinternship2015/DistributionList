@@ -11,7 +11,7 @@ angular.module('searchListModule', [ 'ngStorage', 'checklist-model' ]);
 /**
  * ng-include routing
  */
-app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $location, $localStorage/*, $http */) {
+app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $location, $localStorage, $compile/*, $http */) {
 	  console.log("mainCtrl reporting for duty.");
 
 	  $scope.$storage = $localStorage.$default({
@@ -56,6 +56,24 @@ app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $lo
 		$scope.sidebarUrl = '';
 		$scope.topPanelUrl = '';
 	 }
+
+//temporary login. will change when calls to the AD can be made
+         $scope.login = function(){
+               $scope.viewUrl= 'partials/login.html';
+
+          }
+
+        $scope.submit = function(){
+            angular.element(document.querySelector('#loggingIn')).append($compile('<a id=token href="https://i-e0efe117.workdaysuv.com/super/authorize?response_type=token&client_id=MjA0YjQzY2UtMDQ2Yy00ZTQ5LTg0NGEtY2I4M2QzMjM4Njgy"></a>')($scope));
+            var elem = document.querySelector('#token');
+            elem.click();
+
+
+        }
+
+
+
+
 
 });
 
