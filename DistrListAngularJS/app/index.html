@@ -30,6 +30,7 @@
 <script src="js/memberOfCtrl.js"></script>
 <script src="js/searchListCtrl.js"></script>
 <script src="js/groupDetailsCtrl.js"></script>
+<script src="js/myListViewCtrl.js"></script>
 
 <script src="services/dataSharingService.js"></script>
 <!--
@@ -43,9 +44,9 @@
 
 	<div  id="index" ng-controller="mainCtrl">
 		<div ng-include src="sidebarUrl"></div>
-		<div class="container fill" style="padding:10px">
-			<div ng-include src="topPanelUrl" ></div>
-			<div id="main" style="overflow-y: scroll;" ng-include src="viewUrl"></div>
+		<div class="container fill" style="padding:10px" ng-include src="viewUrl">
+<!--			<div ng-include src="topPanelUrl" ></div>
+			<div id="main" style="overflow-y: scroll;" ng-include src="viewUrl"></div>  -->
 		</div>
 	</div>
 	<!-- <div ng-include='"templates/footer.html"'></div>   -->	

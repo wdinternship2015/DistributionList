@@ -1,4 +1,4 @@
-angular.module('ownedByMeModule').controller('ownedByMeCtrl', function($scope, shareDataService, $log) {
+angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, shareDataService, $log) {
 	
 	$scope.showDetails = false;
 	$scope.showCreateNewGroup = false;
@@ -22,7 +22,7 @@ angular.module('ownedByMeModule').controller('ownedByMeCtrl', function($scope, s
 		//add user id?
 		groups :[]
 	};
-	
+	  
 	$scope.newGroup = function(scope) {
 		$scope.showCreateNewGroup = true;
 		$scope.isPrivate = false;

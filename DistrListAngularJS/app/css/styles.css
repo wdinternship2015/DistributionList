@@ -9,14 +9,14 @@ html, body {
   width: 100%;
 }
 .fill {
-    top: 40px;
+    top: 45px;
     left: 190px;
-    right: 0;
-    bottom: 40px;
+    right: 5px;
+    bottom: 5px;
     position: absolute;
     width: auto;
     height: auto;
-    
+    background-color: #ffffff
 }
 footer {
   padding-left: 15px;

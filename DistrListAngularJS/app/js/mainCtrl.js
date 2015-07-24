@@ -2,12 +2,9 @@
 /**
  * Main AngularJS Web Application
  */
-var app = angular.module('DistributionList', [ //'ngRoute', 
-        'ownedByMeModule', 'memberOfModule', 'searchListModule', /*'dataSharingtModule',*/
-]);
+var app = angular.module('DistributionList', [ 'myDListModule', 'searchListModule' ]);
 
-angular.module('ownedByMeModule', [ 'checklist-model' ]);
-angular.module('memberOfModule', [ 'checklist-model' ]);
+angular.module('myDListModule', [ 'checklist-model' ]);
 angular.module('searchListModule', [ 'checklist-model' ]);
 	
 
@@ -29,14 +26,14 @@ app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $lo
 		var token = split2[0];
 		shareDataService.setToken(token);
 	}
-	
+	  
 	$scope.token  = shareDataService.getToken();
+	console.log('token: ' + $scope.token); 
 	console.log('token length: ' + $scope.token.length);
 	if ($scope.token.length > 0) {
-
 		$window.location.href =  'https://localhost:8443/#/index.html';
-		$scope.topPanelUrl = 'partials/myListTopPanel.html';
-		$scope.viewUrl = 'partials/ownedByMe.html';
+		$scope.viewUrl = 'partials/myListView.html';
+		$scope.contentUrl = 'partials/ownedByMe.html';
 		$scope.sidebarUrl = 'partials/sidebar.html';
 	} else {
 		$scope.viewUrl = 'partials/home.html';
@@ -44,52 +41,24 @@ app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $lo
 	}	  
 	  
 	  $scope.searchDList = function() {
-	  	$scope.topPanelUrl = 'partials/searchListTopPanel.html';
-	  	$scope.viewUrl = 'partials/searchList.html';
+	  	$scope.viewUrl = 'partials/searchListView.html';
 	  }
 	  $scope.myDList = function() {
-	 	$scope.topPanelUrl = 'partials/myListTopPanel.html';
-	 	$scope.viewUrl = 'partials/ownedByMe.html';
+	 	$scope.viewUrl = 'partials/myListView.html';
 	  }
-	  $scope.ownedByMe = function() {
-		$scope.viewUrl = 'partials/ownedByMe.html';
-	  }
-	  $scope.memberOf = function() {
-		$scope.viewUrl = 'partials/memberOf.html';
-	  }
-	  $scope.manageGroup = function() {
-		$scope.viewUrl = 'partials/groupDetails.html';
+	  
+//other REST calls to logout?	  
+	 $scope.logout = function() {
+		shareDataService.setToken('');
+		$scope.viewUrl = 'partials/home.html';
+		$scope.sidebarUrl = '';
+		$scope.topPanelUrl = '';
 	 }
+
 	  
-	  console.log('token: ' + $scope.token);
-	  
-	  $window.load = function(){
-/*	   var element = document.querySelector('#iframe1'); 
-	   //alert("Loading");
-	   //alert("in controller: " + element.contentWindow.location.href);
-	   var url = element.contentWindow.location.href; 
-	   console.log('url: ' + url);
-	   if(url.indexOf("#") >= 0){
-	     var split1 = url.split("=");
-	     var split2 = split1[1].split("&");
-	     var token = split2[0];
-	     console.log(token);
-//	     $scope.token = token; 
-	     shareDataService.setToken(token);
-	     element.style.display="none";
-	     document.querySelector('#iframe2').style.display = "block";
-	     
-	     $scope.appMain();
-	   }
-	   $scope.token  = shareDataService.getToken();
-	   console.log('token: ' + $scope.token);
-*/	  }
 
 });
 
-app.controller('iframeCtrl', function($scope){
-    
-});
 app.directive('authenticate', function($compile, $window, $location){
 	
 return{
@@ -110,30 +79,3 @@ link: function(scope, element, attrs){
 };
 });
 
-/*
-app.controller('mainCtrol', function ($scope,$window,shareDataService) {
-  console.log("PageCtrlHome reporting for duty.");
-  var jsonObj = JSON.parse(testWorkers);
-  $scope.total = jsonObj.total;
-  $scope.workers = jsonObj.data;
-  $scope.datasize = $scope.workers.length;
-  shareDataService.set($scope.workers);
-  $scope.token = "";
-  $window.load = function(){
-   var element = document.querySelector('#iframe1'); 
-   //alert("Loading");
-   //alert("in controller: " + element.contentWindow.location.href);
-   var url = element.contentWindow.location.href; 
-   if(url.indexOf("#") >= 0){
-     var split1 = url.split("=");
-     var split2 = split1[1].split("&");
-     var token = split2[0];
-     console.log(token);
-     $scope.token = token; 
-     element.style.display="none";
-     document.querySelector('#iframe2').style.display = "block";
-   }
-   console.log(token);
-  }
-});
-*/

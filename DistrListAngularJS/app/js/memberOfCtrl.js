@@ -1,4 +1,4 @@
-angular.module('memberOfModule').controller('memberOfCtrl', function ($scope, shareDataService, $log) {
+angular.module('myDListModule').controller('memberOfCtrl', function ($scope, shareDataService, $log) {
 	  console.log("memberOfCtrl reporting for duty.");
 	  
 	  $scope.memberOfGroups = shareDataService.get();

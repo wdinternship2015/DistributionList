@@ -1,4 +1,5 @@
-angular.module('ownedByMeModule').controller('groupDetailsCtrl', function($scope, shareDataService, $log) {
+angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, shareDataService, $log) {
+
 	$scope.thisGroup = shareDataService.getPickedGroup();
 	$scope.showGroupInfo = true;
 
