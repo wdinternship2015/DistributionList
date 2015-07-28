@@ -51,7 +51,7 @@ app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $lo
 		  
 	//other REST calls to logout?	  
 	 $scope.logout = function() {
-		 $scope.$storage.token = "";
+		$localStorage.$reset();
 		$scope.viewUrl = 'partials/home.html';
 		$scope.sidebarUrl = '';
 		$scope.topPanelUrl = '';
