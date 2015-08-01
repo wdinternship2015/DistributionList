@@ -1,5 +1,7 @@
  angular.module('DistributionList').factory('shareDataService', function() {
-	 var savedData = {};
+	 var savedData = {
+           
+          };
 	 
 	 var set = function (data) {
 	   savedData = data;
@@ -24,7 +26,16 @@
 	 var getSearchResult = function () {
 	  return searchResult;
 	 };
-	 	 
+	 
+	 var token;
+	 
+	 var setToken = function (data) {
+	   token = data;
+	 };
+	 
+	 var getToken = function () {
+	  return token;
+	 };
 	 return {
 	  set: set,
 	  get: get,
@@ -32,6 +43,8 @@
 	  getPickedGroup: getPickedGroup,
 	  setSearchResult: setSearchResult,
 	  getSearchResult: getSearchResult,
+	  setToken: setToken,
+	  getToken: getToken,
 	 }
 	 
 });

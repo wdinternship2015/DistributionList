@@ -7,7 +7,6 @@
 	<p>selected group size: {{selectedGroups.groups.length}}</p>
 	<p>{{selectedGroups.groups|json}}</p>
 -->	
-	<p>{{aGroup|json}}</p>
 
  <div ng-controller="ownedByMeCtrl">
 
@@ -16,29 +15,25 @@
 		<p><button ng-click="newGroup()">Create New Group</button></p>
 		<br><br>
 		<div style="border: 2px solid darkblue;padding: 10px;" ng-show="showCreateNewGroup">
-
 			<form name="newGroupForm" ng-init="aGroup.visibility='public'">
 				<table>
 					<tr>
 						<td>Group Name:</td>
 						<td><input type="text" ng-model="aGroup.name" /></td>
-						<td><div ng-show="validName" style="color: red">Group name is required</div></td>
 					</tr>
 					<tr>
 						<td>Alias:</td>
-						<td><input type="text" ng-model="aGroup.alias" /></td>
-						<td><div ng-show="validAlias"  style="color: red">Alias is required</div></td>
+						<td><input type="email" ng-model="aGroup.alias" /></td>
 					</tr>
 					<tr>
 						<td>Description:</td>
 						<td><input type="text" ng-model="aGroup.description" /></td>
-						<td><div ng-show="validDescrpt"  style="color: red">Description is required</div></td>
 					</tr>
 					<tr>
 						<td>Private:</td>
-						<td><input type="checkbox" ng-checked="! showCreateNewGroup"  
+						<td><input type="checkbox" ng-checked="isPrivate"
 							ng-model="aGroup.visibility" ng-true-value="'Private'"
-							ng-false-value="'Public'" /></td>   <!-- "isPrivate" -->
+							ng-false-value="'Public'" /></td>
 					</tr>
 					<tr>
 						<td>
@@ -51,7 +46,6 @@
 					</tr>
 				</table>
 			</form>
-
 		</div> 			
 	</div>
 

@@ -11,7 +11,7 @@ angular.module('searchListModule', [ 'ngStorage', 'checklist-model' ]);
 /**
  * ng-include routing
  */
-app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $location, $localStorage, $compile/*, $http */) {
+app.controller('mainCtrl', function ($scope,tokenService,shareDataService,requestService, $log, $window, $location, $localStorage, $compile/*, $http */) {
 	  console.log("mainCtrl reporting for duty.");
 
 	  $scope.$storage = $localStorage.$default({
@@ -27,8 +27,9 @@ app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $lo
 		var split2 = split1[1].split("&");
 		var token = split2[0];
 		$scope.$storage.token = token;
+                tokenService.setToken(token); 
 	}
-	  
+	  //alert("In Main: " + shareDataService.getToken());
 	  $scope.token = $scope.$storage.token;
 	console.log('token: ' + $scope.token); 
 	console.log('token length: ' + $scope.token.length);
@@ -51,7 +52,7 @@ app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $lo
 		  
 	//other REST calls to logout?	  
 	 $scope.logout = function() {
-		$localStorage.$reset();
+		 $scope.$storage.token = "";
 		$scope.viewUrl = 'partials/home.html';
 		$scope.sidebarUrl = '';
 		$scope.topPanelUrl = '';
@@ -64,10 +65,11 @@ app.controller('mainCtrl', function ($scope,shareDataService, $log, $window, $lo
           }
 
         $scope.submit = function(){
-            angular.element(document.querySelector('#loggingIn')).append($compile('<a id=token href="https://i-e0efe117.workdaysuv.com/super/authorize?response_type=token&client_id=MjA0YjQzY2UtMDQ2Yy00ZTQ5LTg0NGEtY2I4M2QzMjM4Njgy"></a>')($scope));
+            //angular.element(document.querySelector('#loggingIn')).append($compile('<a id=token href="https://i-e0efe117.workdaysuv.com/super/authorize?response_type=token&client_id=MjA0YjQzY2UtMDQ2Yy00ZTQ5LTg0NGEtY2I4M2QzMjM4Njgy"></a>')($scope));
+            angular.element(document.querySelector('#loggingIn')).append($compile('<a id=token href="https://i-7ad0de8d..workdaysuv.com/super/authorize?response_type=token&client_id=ZWM2Yjg5OTAtZWQyYy00MWFlLWFhNjgtODlhODZkZDA4MjYy"></a>')($scope)); 
             var elem = document.querySelector('#token');
             elem.click();
-
+            
 
         }
 

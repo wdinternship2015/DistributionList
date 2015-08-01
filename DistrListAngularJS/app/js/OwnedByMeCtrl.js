@@ -7,7 +7,6 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 	$scope.groups = testGroups;
 	$scope.datasize = $scope.groups.length;
 	shareDataService.set($scope.groups);
-	var formValidated = false;
 
 //make REST call onload here to get distribution lists owned by me	
 	$scope.getOwnedByMeGroups = function(scope)  {
@@ -26,17 +25,11 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 	  
 	$scope.newGroup = function(scope) {
 		$scope.showCreateNewGroup = true;
-		formValidated = false;
+		$scope.isPrivate = false;
 	};
 
 	
 	$scope.addNewGroup = function(scope) {
-		$scope.validName = ! $scope.aGroup.name || ! $scope.aGroup.name.length > 0;
-		$scope.validAlias = ! $scope.aGroup.alias || ! $scope.aGroup.alias.length > 0;
-		$scope.validDescrpt = ! $scope.aGroup.description || ! $scope.aGroup.description.length > 0;
-		formValidated = !($scope.validName || $scope.validAlias || $scope.validDescrpt);
-		
-		if (formValidated) {
 		$scope.aGroup.id = $scope.aGroup.name;		
 		var tempGroup = JSON.stringify($scope.aGroup);
 		$scope.groups.push(JSON.parse(tempGroup));
@@ -45,7 +38,7 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 		
 		$scope.resetNewGroupForm();
 		$scope.showCreateNewGroup = ! $scope.showCreateNewGroup;
-		}
+		
 	};
 	
 	$scope.resetNewGroupForm = function(scope) {
@@ -53,10 +46,7 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 		$scope.aGroup.name = "";
 		$scope.aGroup.alias = "";
 		$scope.aGroup.description = "";
-		$scope.validName = false;
-		$scope.validAlias = false;
-		$scope.validDescrpt = false;
-		formValidated = false;
+		$scope.isPrivate = false;
 		}
 	};
 	
