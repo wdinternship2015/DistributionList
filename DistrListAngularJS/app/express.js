@@ -104,14 +104,14 @@ if (cluster.isMaster) {
 	// server creations
 	
 	// create a http server listens to port 8080
-	var http_server = http.createServer(app).listen(http_port);
+//	var http_server = http.createServer(app).listen(http_port);
 
 	// create a https server listens to port 8443
 	// using the certs and keys as in the options hash
 	var https_server = https.createServer(options, app).listen(https_port);
 
 	// set error handler in case listen to 8080 fails
-	http_server.on('error', function (e) {
+/*	http_server.on('error', function (e) {
 		if (e.code == 'EADDRINUSE') {
 			console.log('Address in use, exiting...');
 			consoler.log('Failed to start http server: address in use.');
@@ -119,7 +119,7 @@ if (cluster.isMaster) {
 			console.log('Unable to start http server, exiting...');
 		}
 	});
-
+*/
 	// set error handler in case listen to 8443 fails
 	https_server.on('error', function (e) {
 		if (e.code == 'EADDRINUSE') {
