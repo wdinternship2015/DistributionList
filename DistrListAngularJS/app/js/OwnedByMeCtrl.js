@@ -1,17 +1,22 @@
-angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, shareDataService, $log, $localStorage) {
+angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, shareDataService,requestService, $log, $localStorage) {
 	//$scope.$storage.token
 	$scope.showDetails = false;
 	$scope.showCreateNewGroup = false;
 	
 	console.log("ownedByMeCtrl reporting for duty. token: " + $scope.token);
-	$scope.groups = testGroups;
-	$scope.datasize = $scope.groups.length;
-	shareDataService.set($scope.groups);
 	var formValidated = false;
 
-//make REST call onload here to get distribution lists owned by me	
+//make REST call here to get distribution lists owned by me, still using get all lists
 	$scope.getOwnedByMeGroups = function(scope)  {
-		
+		requestService.getDistrLists($scope.token).then(
+				function(success) {
+					var obj = success.data;
+					$scope.ownedByMeGroups = obj.data;
+				}, 
+			      function(error){
+			        
+			    }
+		);
 	};
 	
 //make REST call to delete selectedGroups
@@ -92,4 +97,3 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 
 
 
-var testGroups = [{"id": "007", "name": "test name", "alias": "test alias", "description": "test description", "visibility": "Public", "members": [{"name":"Alice", "org": "WD Alice"}, {"name":"Bob", "org": "WD Bob"}, {"name":"Charlie", "org": "WD Charlie"}, {"name":"Dilbert", "org": "WD Dilbert"}]}];

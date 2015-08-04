@@ -9,7 +9,7 @@
 -->	
 	<p>{{aGroup|json}}</p>
 
- <div ng-controller="ownedByMeCtrl">
+ <div ng-init="getOwnedByMeGroups()" ng-controller="ownedByMeCtrl">
 
 	<div id="createNewGroup">
 		<br>
@@ -65,7 +65,7 @@
 			<th class="col-sm-1">Visibility</th>
 		</tr>
 		</thead>
-		<tr ng-repeat="group in groups">
+		<tr ng-repeat="group in ownedByMeGroups">
 		  	<td><input type="checkbox" checklist-model="selectedGroups.groups" checklist-value="group" ng-checked="master"></td>
 		  	<td><a href="#" ng-click="showDetails = ! showDetails">{{group.name}} </a>
 		  		<div ng-show="showDetails">

@@ -1,11 +1,19 @@
-angular.module('myDListModule').controller('memberOfCtrl', function ($scope, shareDataService, $log, $localStorage) {
+angular.module('myDListModule').controller('memberOfCtrl', function ($scope, shareDataService,requestService, $log, $localStorage) {
 	  console.log("memberOfCtrl reporting for duty.");
 	  //$scope.$storage.token
-	  $scope.memberOfGroups = shareDataService.get();
+//	  $scope.memberOfGroups = shareDataService.get();
 	  
-//make REST call onload here to get distribution lists I am a member of	
+//make REST call here to get distribution lists I am a member of, , still using get all lists
 	$scope.getMemberOfGroups = function(scope)  {
-		
+		requestService.getDistrLists($scope.token).then(
+				function(success) {
+					var obj = success.data;
+					$scope.memberOfGroups = obj.data;
+				}, 
+			      function(error){
+			        
+			    }
+		);
 	};
 	  
 // make REST call to delete selectedGroups
