@@ -39,8 +39,8 @@ app.controller('mainCtrl', function ($scope,tokenService,shareDataService,reques
 		$scope.contentUrl = 'partials/ownedByMe.html';
 		$scope.sidebarUrl = 'partials/sidebar.html';
 	} else {
-		$scope.viewUrl = 'partials/home.html';
-		console.log('home');
+		$scope.viewUrl = 'partials/login.html';
+		console.log('login');
 	}	  
 
 	  $scope.searchDListView = function() {
@@ -53,7 +53,7 @@ app.controller('mainCtrl', function ($scope,tokenService,shareDataService,reques
 	//other REST calls to logout?	  
 	 $scope.logout = function() {
 		 $scope.$storage.token = "";
-		$scope.viewUrl = 'partials/home.html';
+		$scope.viewUrl = 'partials/login.html';
 		$scope.sidebarUrl = '';
 		$scope.topPanelUrl = '';
 	 }
@@ -65,8 +65,8 @@ app.controller('mainCtrl', function ($scope,tokenService,shareDataService,reques
           }
 
         $scope.submit = function(){
-            //angular.element(document.querySelector('#loggingIn')).append($compile('<a id=token href="https://i-e0efe117.workdaysuv.com/super/authorize?response_type=token&client_id=MjA0YjQzY2UtMDQ2Yy00ZTQ5LTg0NGEtY2I4M2QzMjM4Njgy"></a>')($scope));
-            angular.element(document.querySelector('#loggingIn')).append($compile('<a id=token href="https://i-7ad0de8d..workdaysuv.com/super/authorize?response_type=token&client_id=ZWM2Yjg5OTAtZWQyYy00MWFlLWFhNjgtODlhODZkZDA4MjYy"></a>')($scope)); 
+            angular.element(document.querySelector('#loggingIn')).append($compile('<a id=token href="https://i-e0efe117.workdaysuv.com/super/authorize?response_type=token&client_id=MjA0YjQzY2UtMDQ2Yy00ZTQ5LTg0NGEtY2I4M2QzMjM4Njgy"></a>')($scope));
+            //angular.element(document.querySelector('#loggingIn')).append($compile('<a id=token href="https://i-7ad0de8d..workdaysuv.com/super/authorize?response_type=token&client_id=ZWM2Yjg5OTAtZWQyYy00MWFlLWFhNjgtODlhODZkZDA4MjYy"></a>')($scope)); 
             var elem = document.querySelector('#token');
             elem.click();
             
@@ -98,4 +98,3 @@ link: function(scope, element, attrs){
 }
 };
 });
-

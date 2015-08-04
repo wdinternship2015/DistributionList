@@ -27,11 +27,11 @@
 		  	<td><input type="checkbox" checklist-model="selectedGroups.groups" checklist-value="group" ng-checked="master"></td>
 		  	<td><a href="#" ng-click="showDetails = ! showDetails">{{group.name}} </a>
 		  		<div ng-show="showDetails">
-		  			<p>{{group.description}}</p>
+		  			<p>{{group.descriptor}}</p>
 		  			<p><button > Something? </button></p>
 		  		</div>
 		  	</td>
-		  	<td>{{group.visibility}}</td>
+		  	<td>{{group.private | privacy}}</td>
 	  	</tr>
 	</table>
      

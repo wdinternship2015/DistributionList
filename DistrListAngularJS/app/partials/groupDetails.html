@@ -4,7 +4,7 @@
 		<h3>{{thisGroup.name}}     		<button class="btn btn-xs" ng-click="showGroupInfo = ! showGroupInfo"><font size="2">Edit</font></button></h3>
 		<h5>{{thisGroup.alias}}</h5>
 		<p>{{thisGroup.description}}</p>
-		<p>{{thisGroup.visibility}}</p>
+		<p>{{thisGroup.private | privacy}}</p>
 
 	</div>
 	<div style="border: 2px solid darkblue;padding: 10px;" ng-show="! showGroupInfo">
@@ -16,7 +16,7 @@
 				</tr>
 				<tr>
 					<td>Alias:</td>
-					<td><input type="email" ng-model="thisGroup.alias" value="thisGroup.alias"/></td>
+					<td><input type="text" ng-model="thisGroup.alias" value="thisGroup.alias"/></td>
 				</tr>
 				<tr>
 					<td>Description:</td>
@@ -24,7 +24,7 @@
 				</tr>
 				<tr>
 					<td>Private:</td>
-					<td><input type="checkbox"  ng-checked="thisGroup.visibility === 'Private'" ng-model="thisGroup.visibility" ng-true-value="'Private'" ng-false-value="'Public'"/></td>
+					<td><input type="checkbox"  ng-checked="thisGroup.private" ng-model="thisGroup.private"/></td>
 				</tr>
 
 				<tr>
