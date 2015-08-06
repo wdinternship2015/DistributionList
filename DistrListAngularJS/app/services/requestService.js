@@ -3,8 +3,8 @@ angular.module('DistributionList').factory('requestService',['$http', function($
   service.getDistrLists = function(token){
     var response = 
       $http({
-        url: "https://i-7ad0de8d.workdaysuv.com/ccx/internalapi/emailDList/v1/super/distributionList",
-        //url: "https://i-c3da750a.workdaysuv.com/ccx/internalapi/emailDList/v1/super/distributionList",
+        //url: "https://i-7ad0de8d.workdaysuv.com/ccx/internalapi/emailDList/v1/super/distributionList",
+        url: "https://i-c3da750a.workdaysuv.com/ccx/internalapi/emailDList/v1/super/distributionList",
         method: 'GET',
         //headers: {'Content Type' : 'application/json'}, 
         headers: {'Authorization': 'Bearer ' + token},

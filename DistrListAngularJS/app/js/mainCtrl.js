@@ -2,18 +2,32 @@
 /**
  * Main AngularJS Web Application
  */
-var app = angular.module('DistributionList', [ 'ngStorage', 'myDListModule', 'searchListModule' ]);
+var app = angular.module('DistributionList', [ 'ngStorage', 'myDListModule', 'searchListModule' , 'ngIdle' , 'ui.bootstrap' ]);
 
 angular.module('myDListModule', [ 'ngStorage', 'checklist-model' ]);
 angular.module('searchListModule', [ 'ngStorage', 'checklist-model' ]);
-	
+
+
+//idle logout config
+app.config(['KeepaliveProvider', 'IdleProvider', function(KeepaliveProvider, IdleProvider) {
+	  IdleProvider.idle(5*60);  //seconds
+	  IdleProvider.timeout(5); //seconds
+//	  KeepaliveProvider.interval(10);
+}]);
+//start idle watch
+app.run(['Idle', function(Idle) {
+    Idle.watch();
+//    $scope.started = true;
+    console.log("idle watch start");
+}]);
 
 /**
  * ng-include routing
  */
-app.controller('mainCtrl', function ($scope,tokenService,shareDataService,requestService, $log, $window, $location, $localStorage, $compile/*, $http */) {
+app.controller('mainCtrl', function ($scope,tokenService,shareDataService,requestService, $log, $window, $location, $localStorage, $compile, Idle, Keepalive, $modal/*, $http */) {
 	  console.log("mainCtrl reporting for duty.");
-
+//	  $scope.started = false;
+	  
 	  $scope.$storage = $localStorage.$default({
           token: ""
         });
@@ -65,15 +79,45 @@ app.controller('mainCtrl', function ($scope,tokenService,shareDataService,reques
           }
 
         $scope.submit = function(){
-            //angular.element(document.querySelector('#loggingIn')).append($compile('<a id=token href="https://i-c3da750a.workdaysuv.com/super/authorize?response_type=token&client_id=ZWM2Yjg5OTAtZWQyYy00MWFlLWFhNjgtODlhODZkZDA4MjYy"></a>')($scope));
-            angular.element(document.querySelector('#loggingIn')).append($compile('<a id=token href="https://i-7ad0de8d.workdaysuv.com/super/authorize?response_type=token&client_id=ZWM2Yjg5OTAtZWQyYy00MWFlLWFhNjgtODlhODZkZDA4MjYy"></a>')($scope));
+            angular.element(document.querySelector('#loggingIn')).append($compile('<a id=token href="https://i-c3da750a.workdaysuv.com/super/authorize?response_type=token&client_id=ZWM2Yjg5OTAtZWQyYy00MWFlLWFhNjgtODlhODZkZDA4MjYy"></a>')($scope));
+            //angular.element(document.querySelector('#loggingIn')).append($compile('<a id=token href="https://i-7ad0de8d.workdaysuv.com/super/authorize?response_type=token&client_id=ZWM2Yjg5OTAtZWQyYy00MWFlLWFhNjgtODlhODZkZDA4MjYy"></a>')($scope));
             var elem = document.querySelector('#token');
             elem.click();
         }
 
-
-
-
+//idle logout functions
+		function closeModals() {
+			if ($scope.warning) {
+				$scope.warning.close();
+				$scope.warning = null;
+			}
+			if ($scope.timedout) {
+				$scope.timedout.close();
+				$scope.timedout = null;
+			}
+		}
+		$scope.$on('IdleStart', function() {
+			closeModals();
+			/*
+			$scope.warning = $modal.open({
+				templateUrl : 'warning-dialog.html',
+				windowClass : 'modal-danger'
+			});
+			*/
+		});
+		$scope.$on('IdleEnd', function() {
+			closeModals();
+		});
+		$scope.$on('IdleTimeout', function() {
+			console.log("idle timeout");
+			closeModals();
+			$scope.logout();
+			$scope.timedout = $modal.open({
+				templateUrl : 'timedout-dialog.html',
+				windowClass : 'modal-danger'
+			});
+		});
+//end idle logout functions
 
 });
 
@@ -82,7 +126,9 @@ app.directive('authenticate', function($compile, $window, $location){
 return{
 restrict: 'AE',
 scope: false,
-//template:'<a href="https://i-e0efe117.workdaysuv.com/super/authorize?response_type=token&client_id=MjA0YjQzY2UtMDQ2Yy00ZTQ5LTg0NGEtY2I4M2QzMjM4Njgy" ng-click="submit()"></a>',    
+// template:'<a
+// href="https://i-e0efe117.workdaysuv.com/super/authorize?response_type=token&client_id=MjA0YjQzY2UtMDQ2Yy00ZTQ5LTg0NGEtY2I4M2QzMjM4Njgy"
+// ng-click="submit()"></a>',
 link: function(scope, element, attrs){
   element.on('click', function(onClickEvent){
 	  console.log('autheticate directive');

@@ -7,12 +7,13 @@
 <meta name="generator" content="Bootply" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<script type="text/javascript" src="resourceJS/angular.min.js"></script>
+<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 <script type="text/javascript" src="resourceJS/angular-resource.js"></script>
 <script type="text/javascript" src="resourceJS/ui-bootstrap-tpls-0.13.0.min.js"></script>
+<script type="text/javascript" src="resourceJS/angular-idle.js"></script>
 <script type="text/javascript" src="bower_components/angular-mocks/angular-mocks.js"></script>
 <script type="text/javascript" src="bower_components/checklist-model/checklist-model.js"></script>
-<script type="text/javascript" src="bower_components/ngStorage/ngStorage.js"></script>
+<script type="text/javascript" src="bower_components/ngstorage/ngStorage.js"></script>
 
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="css/example.css" />
@@ -34,23 +35,22 @@
 <script src="js/myListViewCtrl.js"></script>
 <script src="js/sidebarCtrl.js"></script>
 
+
+
 <script src="services/dataSharingService.js"></script>
 <script src="services/requestService.js"></script>
 <script src="services/tokenService.js"></script>  
-<!--
-<script src="services/test.js"></script>
--->
+
 </head>
 
 <body ng-app="DistributionList">
-
+	<div ng-include='"partials/idleLogout.html"'></div>
 	<div ng-include='"templates/header.html"'></div>
-
 	<div  id="index" ng-controller="mainCtrl">
+	<!--	<div ng-include='"partials/idleLogout.html"'></div> -->
+		<div ng-include='"partials/idleLogout.html"'></div>
 		<div ng-include src="sidebarUrl"></div>
 		<div class="container fill" style="padding:10px" ng-include src="viewUrl">
-<!--			<div ng-include src="topPanelUrl" ></div>
-			<div id="main" style="overflow-y: scroll;" ng-include src="viewUrl"></div>  -->
 		</div>
 	</div>
 	<!-- <div ng-include='"templates/footer.html"'></div>   -->	

@@ -8,13 +8,15 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 
 //make REST call here to get distribution lists owned by me, still using get all lists
 	$scope.getOwnedByMeGroups = function(scope)  {
+		console.log("get list");
 		requestService.getDistrLists($scope.token).then(
 				function(success) {
 					var obj = success.data;
 					$scope.ownedByMeGroups = obj.data;
+					console.log(success.data);
 				}, 
 			      function(error){
-			        
+					console.log("error: " + error.data);
 			    }
 		);
 	};
