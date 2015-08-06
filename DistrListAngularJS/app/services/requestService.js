@@ -25,7 +25,7 @@ angular.module('DistributionList').factory('requestService',['$http', function($
 	        transformResponse: function(data){
 	          return data;
 	        },
-	        headers: [{'Authorization': 'Bearer ' + token}, {'Content-Type': 'application/json'}],
+	        headers: {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'},
 	      }).success(function(data, status, headers, config){
 	        return data;
 	      }).error(function(data, status, headers, config){

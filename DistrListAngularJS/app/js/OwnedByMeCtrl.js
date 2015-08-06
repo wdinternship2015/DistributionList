@@ -48,7 +48,7 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 			temp["alias"] = $scope.aGroup.alias;
 			temp["private"] = $scope.aGroup.private;
 			temp["description"] = $scope.aGroup.description;
-			temp["managedBy"] = '[{"id":"247$257"}]';
+			temp["managedBy"] = [{"id":"247$257"}];
 
 			//REST call go here to submit form 
 			requestService.createDistrList(temp, $scope.token).then(
