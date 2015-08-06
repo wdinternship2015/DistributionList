@@ -7,7 +7,7 @@
 	<p>selected group size: {{selectedGroups.groups.length}}</p>
 	<p>{{selectedGroups.groups|json}}</p>
 -->	
-	<p>{{aGroup|json}}</p>
+
 
  <div ng-init="getOwnedByMeGroups()" ng-controller="ownedByMeCtrl">
 
@@ -16,8 +16,8 @@
 		<p><button ng-click="newGroup()">Create New Group</button></p>
 		<br><br>
 		<div style="border: 2px solid darkblue;padding: 10px;" ng-show="showCreateNewGroup">
-
-			<form name="newGroupForm" ng-init="aGroup.visibility='public'">
+	<p>{{aGroup|json}}</p>
+			<form name="newGroupForm" ng-init="aGroup.private=false">
 				<table>
 					<tr>
 						<td>Group Name:</td>

@@ -50,8 +50,16 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 			temp["description"] = $scope.aGroup.description;
 			temp["managedBy"] = '[{"id":"247$257"}]';
 
-			$scope.groups.push(temp);			
 			//REST call go here to submit form 
+			requestService.createDistrList(temp, $scope.token).then(
+					function(success) {
+						var obj = success.data;
+						$scope.getOwnedByMeGroups();
+					}, 
+				      function(error){
+				        
+				    }
+			);
 			
 			$scope.resetNewGroupForm();
 			$scope.showCreateNewGroup = ! $scope.showCreateNewGroup;

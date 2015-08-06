@@ -43,11 +43,12 @@
 	<p>{{selectedMembers.members|json}}</p>
 -->	
 	<p>
-		Add members: <input type="text">
-		<button>Add</button>
+		<button ng-click="addMember()">Add member</button> <input type="text" ng-model="addMemeber" ng-change="getOptions()" >
+		<div style="border: 1px solid darkblue;padding: 2px; width:250px; height: 150px;overflow-y: auto;" ng-show="showWorker">
+			<li style="list-style: none;display: inline-block;margin:0" ng-repeat="worker in workers" ng-click="setMemeber(worker)">{{worker.descriptor}}</li></div>
 	</p>
 	<br> <br>
-
+	
 	<table class="table table-striped" style="width: auto;">
 
 		<thead>
