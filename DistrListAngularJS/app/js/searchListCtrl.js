@@ -2,11 +2,14 @@ angular.module('searchListModule').controller('searchListCtrl', function ($scope
 	 // console.log("searchListCtrl reporting for duty.");
 	  console.log('searchListCtrl token: ' + $scope.token); 
 	  //$scope.$storage.token
+	  
+	  $scope.searchOptions = [{"option": "Group Name"}, {"option": "Owner Name"}];
+
 	  $scope.searchResultGroups = "";
 		  
 	// make REST call to subscribe to selectedGroups
 		$scope.subscribeGroups = function(scope)  {
-			  $scope.searchResultGroups = shareDataService.getSearchResult();
+			 // $scope.searchResultGroups = shareDataService.getSearchResult();
 		};
 		
 		$scope.selectedGroups = {
@@ -15,14 +18,17 @@ angular.module('searchListModule').controller('searchListCtrl', function ($scope
 		};
 
 		//make REST call here to get search result, still using get all lists
-		$scope.search = function(searchParam) {
-			requestService.getDistrLists($scope.token).then(
+		$scope.search = function(scope) {
+			//build search string with selected search type
+			var searchString = $scope.searchParam;
+			
+			requestService.searchDLists(encodeURI(searchString),$scope.token).then(
 					function(success) {
-						var obj = success.data;
+						var obj = JSON.parse(success.data);
 						$scope.searchResultGroups = obj.data;
 					}, 
 				      function(error){
-				        
+				        console.log("search failure");
 				    }
 			);
 		};

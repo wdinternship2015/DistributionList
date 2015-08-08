@@ -41,19 +41,31 @@
 <!-- 
 	<p>selected group size: {{selectedMembers.members.length}}</p>
 	<p>{{selectedMembers.members|json}}</p>
--->	
+	
 	<p>
-		<button ng-click="addMember()">Add member</button> <input type="text" ng-model="addMemeber" ng-change="getOptions()" >
+		<button ng-click="addMember()">Add member</button> <input type="text" ng-model="addMember" ng-change="getOptions()" >
 		<div style="border: 1px solid darkblue;padding: 2px; width:250px; height: 150px;overflow-y: auto;" ng-show="showWorker">
-			<li style="list-style: none;display: inline-block;margin:0" ng-repeat="worker in workers" ng-click="setMemeber(worker)">{{worker.descriptor}}</li></div>
+			<li style="list-style: none;display: inline-block;margin:0" ng-repeat="worker in workers" ng-click="setMember(worker)">{{worker.descriptor}}</li></div>
 	</p>
+-->
+	<table>
+		<tr>
+			<td valign="top"><button ng-click="addMember()">Add member</button></td>
+			<td><input type="text" ng-model="memberName" ng-change="getOptions()" style="width:250px;"">
+				<div style="border: 1px solid darkblue;padding: 2px; width:250px; height: 150px;overflow-y: auto;" ng-show="showWorker">
+					<li style="list-style: none;display: inline-block;margin:0" ng-repeat="worker in workers" ng-click="setMember(worker)">{{worker.descriptor}}</li>
+				</div>
+			</td>
+			<td><div ng-show="addMemberError" style="color: red">{{addMemberErrorMsg}}</div></td>
+		</tr>
+	</table>
 	<br> <br>
 	
 	<table class="table table-striped" style="width: auto;">
 
 		<thead>
 			<tr>
-				<th class="col-sm-1"><!--  <input type="checkbox" ng-model="memeberMaster">&nbsp-->
+				<th class="col-sm-1"><!--  <input type="checkbox" ng-model="MemberMaster">&nbsp-->
 					<button ng-click="removeMembers()">Remove</button></th>
 				<th class="col-sm-4"><label>Members</label></th>
 				<th class="col-sm-1"></th>
@@ -62,7 +74,7 @@
 		<tr ng-repeat="member in thisGroup.members">
 			<td><input type="checkbox"
 				checklist-model="selectedMembers.members" checklist-value="member"
-				ng-checked="memeberMaster">
+				ng-checked="memberMaster">
 			</td>
 			<td><a href="#" ng-click="showDetails = ! showDetails">{{member.name}}</a>
 				<div ng-show="showDetails">

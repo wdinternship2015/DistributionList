@@ -1,8 +1,11 @@
 angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, shareDataService, requestService, $log, $localStorage) {
+	console.log("membername: " + $scope.memberName);
 	//$scope.$storage.token
 	$scope.thisGroup = shareDataService.getPickedGroup();
 	$scope.showGroupInfo = true;
 	$scope.showWorker = false;
+	//minimum string length needed for search workers
+	var minLength = 3;
 	$scope.workersTotal = "#";
 	$scope.memberToAdd;
 	$scope.selectedMembers = {
@@ -11,11 +14,12 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 	};
 		
 	$scope.getOptions = function(scope) {
-//		console.log("add memeber param: " + $scope.addMemeber);
-		if ($scope.addMemeber.length < 3) {
+//		console.log("add Member param: " + $scope.addMember);
+		$scope.addMemberError = false;
+		if ($scope.memberName.length < minLength) {
 			$scope.showWorker = false;
 		} else {
-			requestService.getWorkers(encodeURI($scope.addMemeber), $scope.token).then(
+			requestService.getWorkers(encodeURI($scope.memberName), $scope.token).then(
 					function(success) {
 						var obj = JSON.parse(success.data);
 						var numWorkers = obj.total;
@@ -34,8 +38,8 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 		}
 	}
 	
-	$scope.setMemeber = function(worker) {
-		$scope.addMemeber = worker.descriptor;
+	$scope.setMember = function(worker) {
+		$scope.memberName = worker.descriptor;
 		$scope.getOptions();
 		$scope.memberToAdd = worker;
 	}
@@ -50,12 +54,12 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 		
 	};
 	
-	$scope.viewMemberDetails = function(aMemeber) {
+	$scope.viewMemberDetails = function(aMember) {
 		//REST call to get information of aMember
-		//shareDataService.setPickedMember(aMemeber);
+		//shareDataService.setPickedMember(aMember);
 		//$scope.viewMember();
 		$scope.showWorker = true;
-		requestService.getWorkerDetails(encodeURI($scope.addMemeber), $scope.token).then(
+		requestService.getWorkerDetails(encodeURI($scope.memberName), $scope.token).then(
 				function(success) {
 					var obj = JSON.parse(success.data);
 					var numWorkers = obj.total;
@@ -74,14 +78,22 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 	};
 	
 	$scope.addMember = function(scope) {
-		console.log("add member: " + $scope.memberToAdd.id);
-		$scope.showWorker = false;
+		if ($scope.memberName && $scope.memberName.length > 0) {		
 		
-		//REST call to add member, on success
-		$scope.addMemeber = "";
-
-		//on failure
-			//display error message
+			console.log("add member: " + $scope.memberName);
+			$scope.showWorker = false;
+			
+			//REST call to add member, on success
+			$scope.memberName = "";
+			
+			//on failure
+				//display error message
+			$scope.addMemberError = true;
+			$scope.addMemberErrorMsg = "Can't add member OR member doesn't exist";
+		} else {
+			$scope.addMemberError = true;
+			$scope.addMemberErrorMsg = "A name is required";
+		}
 	}
 	
 });
