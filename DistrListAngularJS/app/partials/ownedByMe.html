@@ -16,7 +16,7 @@
 		<p><button ng-click="newGroup()">Create New Group</button></p>
 		<br><br>
 		<div style="border: 2px solid darkblue;padding: 10px;" ng-show="showCreateNewGroup">
-	<p>{{aGroup|json}}</p>
+<!-- 	<p>{{aGroup|json}}</p> -->	
 			<form name="newGroupForm" ng-init="aGroup.private=false">
 				<table>
 					<tr>
@@ -51,7 +51,7 @@
 					</tr>
 				</table>
 			</form>
-
+			<div ng-show="addGroupFail" style="color: red">{{addGroupFailMsg}}</div>
 		</div> 			
 	</div>
 

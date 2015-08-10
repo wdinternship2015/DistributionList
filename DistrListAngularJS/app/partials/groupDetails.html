@@ -53,10 +53,12 @@
 			<td valign="top"><button ng-click="addMember()">Add member</button></td>
 			<td><input type="text" ng-model="memberName" ng-change="getOptions()" style="width:250px;"">
 				<div style="border: 1px solid darkblue;padding: 2px; width:250px; height: 150px;overflow-y: auto;" ng-show="showWorker">
-					<li style="list-style: none;display: inline-block;margin:0" ng-repeat="worker in workers" ng-click="setMember(worker)">{{worker.descriptor}}</li>
+					<li style="list-style: none; margin:0" ng-repeat="worker in workers" ng-click="setMember(worker)">{{worker.descriptor}}</li>
 				</div>
 			</td>
-			<td><div ng-show="addMemberError" style="color: red">{{addMemberErrorMsg}}</div></td>
+			<td>
+				<div ng-show="addMemberError" style="color: red">{{addMemberErrorMsg}}</div>
+			</td>
 		</tr>
 	</table>
 	<br> <br>

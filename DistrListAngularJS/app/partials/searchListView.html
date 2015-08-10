@@ -6,17 +6,19 @@
 			Search by: <select ng-init="searchBy = searchOptions[0]" ng-model="searchBy" ng-options="searchOption.option for searchOption in searchOptions"></select>
 		</li>
 		<li>
-			Search parameter: <input type="text" ng-model="searchParam">
+			&nbsp matching <input type="text" ng-model="searchParam">
 		</li>
 		<li>
-			<button style="width:100px" ng-click="search(searchParam)">Search</button>
+			<button style="width:100px" ng-click="search()">Search</button>
 		</li>
 	</ul>
 
 </div>
 	<div id="main" style="overflow-y: scroll;" >
-     <h4>search page stuff here</h4>
-     <br><br>
+     
+     <br>
+     <p style="color: blue">{{searchResultMsg}}</p>
+     <br>
      	<table class="table table-striped" style="width: auto;">		
 		<thead>
 		<tr>

@@ -1,7 +1,7 @@
 angular.module('searchListModule').controller('searchListCtrl', function ($scope, shareDataService,requestService, $log, $localStorage) {
-	 // console.log("searchListCtrl reporting for duty.");
+	 
 	  console.log('searchListCtrl token: ' + $scope.token); 
-	  //$scope.$storage.token
+	  $scope.searchResultMsg = "Enter search parameters";
 	  
 	  $scope.searchOptions = [{"option": "Group Name"}, {"option": "Owner Name"}];
 
@@ -21,16 +21,29 @@ angular.module('searchListModule').controller('searchListCtrl', function ($scope
 		$scope.search = function(scope) {
 			//build search string with selected search type
 			var searchString = $scope.searchParam;
-			
-			requestService.searchDLists(encodeURI(searchString),$scope.token).then(
-					function(success) {
-						var obj = JSON.parse(success.data);
-						$scope.searchResultGroups = obj.data;
-					}, 
-				      function(error){
-				        console.log("search failure");
-				    }
-			);
+			if ($scope.searchParam && $scope.searchParam.length > 0) {
+				requestService.searchDLists(encodeURI(searchString),$scope.token).then(
+						function(success) {
+							var obj = JSON.parse(success.data);
+							$scope.searchResultMsg = obj.total + " items matching search parameters";
+							$scope.searchResultGroups = obj.data;
+						}, 
+					      function(error){
+					        console.log("search failure");
+					    }
+				);
+			} else {
+				requestService.getDLists($scope.token).then(
+						function(success) {
+							var obj = success.data;
+							$scope.searchResultGroups = obj.data;
+							$scope.searchResultMsg = obj.total + " items matching search parameters";
+						}, 
+					      function(error){
+							console.log("error: " + error.data);
+					    }
+				);
+			}
 		};
 
 });

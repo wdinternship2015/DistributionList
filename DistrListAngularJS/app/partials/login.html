@@ -1,6 +1,5 @@
 <div>
-  <body>
-   <div class="container">
+  <div class="container">
     <div class="col-sm-8 col-sm-offset-2">
       <div class="page-header"><h1>Login Page</h1></div>
       <form name="userForm">
@@ -12,9 +11,10 @@
           <label>Password</label>
           <input type="password" name="password" class="form-control" ng-model="password">
         </div>
-      <button type="submit" id="loggingIn" class="btn btn-primary" ng-click="submit()">Submit</button>
+      <button type="submit" id="loggingIn" class="btn btn-primary" ng-click="login()">Submit</button>
       </form>
+      <div ng-show="loginFail" style="color: red">{{loginFailMsg}}</div>
     </div>
     </div>
-  </body>
 </div>
+

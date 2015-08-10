@@ -2,6 +2,7 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 	//$scope.$storage.token
 	$scope.showDetails = false;
 	$scope.showCreateNewGroup = false;
+	$scope.addGroupFail = false;
 	
 	console.log("ownedByMeCtrl reporting for duty. token: " + $scope.token);
 	var formValidated = false;
@@ -9,11 +10,10 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 //make REST call here to get distribution lists owned by me, still using get all lists
 	$scope.getOwnedByMeGroups = function(scope)  {
 		console.log("get list");
-		requestService.getDistrLists($scope.token).then(
+		requestService.getDLists($scope.token).then(
 				function(success) {
 					var obj = success.data;
 					$scope.ownedByMeGroups = obj.data;
-					console.log(success.data);
 				}, 
 			      function(error){
 					console.log("error: " + error.data);
@@ -36,7 +36,9 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 		formValidated = false;
 	};
 
-	
+	/*
+	 * Add new group functons
+	 */
 	$scope.addNewGroup = function(scope) {
 		$scope.validName = ! $scope.aGroup.name || ! $scope.aGroup.name.length > 0;
 		$scope.validAlias = ! $scope.aGroup.alias || ! $scope.aGroup.alias.length > 0;
@@ -45,26 +47,27 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 		
 		if (formValidated) {
 			
-			var temp = {};
-			temp["name"] = $scope.aGroup.name;
-			temp["alias"] = $scope.aGroup.alias;
-			temp["private"] = $scope.aGroup.private;
-			temp["description"] = $scope.aGroup.description;
-			temp["managedBy"] = [{"id":"247$257"}];
+			var aNewGroup = {};
+			aNewGroup["name"] = $scope.aGroup.name;
+			aNewGroup["alias"] = $scope.aGroup.alias;
+			aNewGroup["private"] = $scope.aGroup.private;
+			aNewGroup["description"] = $scope.aGroup.description;
+			aNewGroup["managedBy"] = [{"id":"247$257"}];
 
 			//REST call go here to submit form 
-			requestService.createDistrList(temp, $scope.token).then(
+			requestService.createDistrList(aNewGroup, $scope.token).then(
 					function(success) {
+						$scope.addGroupFail = false;
 						var obj = success.data;
 						$scope.getOwnedByMeGroups();
+						$scope.resetNewGroupForm();
+						$scope.showCreateNewGroup = ! $scope.showCreateNewGroup;
 					}, 
 				      function(error){
-				        
+						$scope.addGroupFail = true;
+						$scope.addGroupFailMsg = "Cannot create new group. \n" + error.data;
 				    }
-			);
-			
-			$scope.resetNewGroupForm();
-			$scope.showCreateNewGroup = ! $scope.showCreateNewGroup;
+			);			
 		}
 	};
 	
@@ -77,6 +80,7 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 		$scope.validAlias = false;
 		$scope.validDescrpt = false;
 		formValidated = false;
+		$scope.addGroupFail = false;
 		}
 	};
 	
@@ -88,6 +92,7 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 		$scope.resetNewGroupForm();
 		$scope.showCreateNewGroup = ! $scope.showCreateNewGroup;				
 	};
+	//end add new group functions
 	
 	$scope.editGroupDetails = function(aGroup) {
 		//REST call to get information by aGroup.id

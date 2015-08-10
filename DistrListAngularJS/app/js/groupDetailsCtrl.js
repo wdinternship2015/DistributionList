@@ -26,9 +26,13 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 						$scope.workersTotal = numWorkers;
 						$scope.workers = obj.data;
 						if ($scope.workers && $scope.workers.length > 0) {
+							$scope.addMemberError = false;
 							$scope.showWorker = true;
 						} else {
 							$scope.showWorker = false;
+							$scope.addMemberError = true;
+							$scope.addMemberErrorMsg = "No member matching this description";
+
 						}
 					}, 
 				      function(error){
