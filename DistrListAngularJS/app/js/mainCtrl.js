@@ -68,7 +68,7 @@ angular.module('DistributionList').controller('mainCtrl', function ($scope,token
 			// angular.element(document.querySelector('#loggingIn')).append($compile('<a
 			// id=token
 			// href="https://i-c3da750a.workdaysuv.com/super/authorize?response_type=token&client_id=ZWM2Yjg5OTAtZWQyYy00MWFlLWFhNjgtODlhODZkZDA4MjYy"></a>')($scope));
-			angular
+/*			angular
 					.element(document.querySelector('#loggingIn'))
 					.append(
 							$compile(
@@ -76,7 +76,8 @@ angular.module('DistributionList').controller('mainCtrl', function ($scope,token
 									($scope));
 			var elem = document.querySelector('#token');
 			elem.click();
-			
+*/			
+			$window.location.href = 'https://i-7ad0de8d.workdaysuv.com/super/authorize?response_type=token&client_id=ZWM2Yjg5OTAtZWQyYy00MWFlLWFhNjgtODlhODZkZDA4MjYy';
 			//login fail
 			/*
 			 * $scope.loginFail = false;
