@@ -6,7 +6,7 @@
 /**
  * ng-include routing
  */
-angular.module('DistributionList').controller('mainCtrl', function ($scope,tokenService,shareDataService,requestService, $log, $window, $location, $localStorage, $compile, Idle, Keepalive, $modal/*, $http */) {
+angular.module('DistributionList').controller('mainCtrl', function ($scope,RESTfulAPI,shareDataService,requestService, $log, $window, $location, $localStorage, $compile, Idle, Keepalive, $modal/*, $http */) {
 	  console.log("mainCtrl reporting for duty.");
 
 	  	$scope.loginFail = false;
@@ -65,19 +65,7 @@ angular.module('DistributionList').controller('mainCtrl', function ($scope,token
 		// temporary login. will change when calls to the AD can be
 		// made
 		$scope.login = function() {
-			// angular.element(document.querySelector('#loggingIn')).append($compile('<a
-			// id=token
-			// href="https://i-c3da750a.workdaysuv.com/super/authorize?response_type=token&client_id=ZWM2Yjg5OTAtZWQyYy00MWFlLWFhNjgtODlhODZkZDA4MjYy"></a>')($scope));
-/*			angular
-					.element(document.querySelector('#loggingIn'))
-					.append(
-							$compile(
-									'<a id=token href="https://i-7ad0de8d.workdaysuv.com/super/authorize?response_type=token&client_id=ZWM2Yjg5OTAtZWQyYy00MWFlLWFhNjgtODlhODZkZDA4MjYy"></a>')
-									($scope));
-			var elem = document.querySelector('#token');
-			elem.click();
-*/			
-			$window.location.href = 'https://i-7ad0de8d.workdaysuv.com/super/authorize?response_type=token&client_id=ZWM2Yjg5OTAtZWQyYy00MWFlLWFhNjgtODlhODZkZDA4MjYy';
+			$window.location.href = RESTfulAPI.OAuthUrl();
 			//login fail
 			/*
 			 * $scope.loginFail = false;

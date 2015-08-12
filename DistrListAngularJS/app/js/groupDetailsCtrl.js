@@ -1,6 +1,5 @@
 angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, shareDataService, requestService, $log, $localStorage) {
 	console.log("membername: " + $scope.memberName);
-	//$scope.$storage.token
 	$scope.thisGroup = shareDataService.getPickedGroup();
 	$scope.showGroupInfo = true;
 	$scope.showWorker = false;
