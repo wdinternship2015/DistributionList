@@ -1,6 +1,6 @@
 angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, shareDataService, requestService, $log, $localStorage) {
-	console.log("membername: " + $scope.memberName);
 	$scope.thisGroup = shareDataService.getPickedGroup();
+	console.log("thisGroup.id: " + $scope.thisGroup.id);
 	$scope.showGroupInfo = true;
 	$scope.showWorker = false;
 	//minimum string length needed for search workers
@@ -14,6 +14,7 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 		
 	$scope.getOptions = function(scope) {
 //		console.log("add Member param: " + $scope.addMember);
+		$scope.memberToAdd = "";
 		$scope.addMemberError = false;
 		if ($scope.memberName.length < minLength) {
 			$scope.showWorker = false;
@@ -81,18 +82,41 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 	};
 	
 	$scope.addMember = function(scope) {
-		if ($scope.memberName && $scope.memberName.length > 0) {		
+		if ($scope.memberToAdd.length !==0 /*&& $scope.memberToAdd.length > 0 && $scope.memberName && $scope.memberName.length > 0*/) {		
 		
 			console.log("add member: " + $scope.memberName);
 			$scope.showWorker = false;
-			
+			var members = {};
+			members["members"] = [{"id" : $scope.memberToAdd.id}];
+			//members["members"] = [{"id" : "247$257"}];
 			//REST call to add member, on success
-			$scope.memberName = "";
-			
-			//on failure
-				//display error message
+			requestService.addMemberToDList(members, $scope.thisGroup.id, $scope.token).then(
+				function(success) {
+					$scope.memberName = "";
+					$scope.memberToAdd = "";
+					$scope.thisGroup = JSON.parse(success.data);
+					console.log("members: " + $scope.thisGroup.members);
+					console.log("add member response: " + success.data);
+				}, 
+			    function(error){
+					console.log("add members failed + " + error.data);
+					$scope.addMemberError = true;
+					$scope.addMemberErrorMsg = error.data;
+			        console.log("show error: " + $scope.addMemberError + " msg: " + $scope.addMemberErrorMsg);
+			    }
+			);
+			requestService.getDList($scope.thisGroup.id, $scope.token).then(
+					function(success) {
+						$scope.thisGroup = JSON.parse(success.data);
+						console.log("refresh group details: " + success.data);
+					}, 
+				      function(error){
+				        console.log("getOptions failed");
+				    }
+			);
+		} else if ($scope.memberName && $scope.memberName.length > 0 && $scope.memberToAdd.length == 0){
 			$scope.addMemberError = true;
-			$scope.addMemberErrorMsg = "Can't add member OR member doesn't exist";
+			$scope.addMemberErrorMsg = "Choose a member from the list";
 		} else {
 			$scope.addMemberError = true;
 			$scope.addMemberErrorMsg = "A name is required";

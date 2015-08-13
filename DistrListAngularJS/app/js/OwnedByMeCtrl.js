@@ -10,7 +10,7 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 //make REST call here to get distribution lists owned by me, still using get all lists
 	$scope.getOwnedByMeGroups = function(scope)  {
 		console.log("get list");
-		requestService.getDLists($scope.token).then(
+		requestService.getAllDLists($scope.token).then(
 				function(success) {
 					var obj = success.data;
 					$scope.ownedByMeGroups = obj.data;
@@ -55,7 +55,7 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 			aNewGroup["managedBy"] = [{"id":"247$257"}];
 
 			//REST call go here to submit form 
-			requestService.createDistrList(aNewGroup, $scope.token).then(
+			requestService.createDList(aNewGroup, $scope.token).then(
 					function(success) {
 						$scope.addGroupFail = false;
 						var obj = success.data;

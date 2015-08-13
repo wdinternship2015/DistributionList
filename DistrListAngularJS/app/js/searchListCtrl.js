@@ -33,7 +33,7 @@ angular.module('searchListModule').controller('searchListCtrl', function ($scope
 					    }
 				);
 			} else {
-				requestService.getDLists($scope.token).then(
+				requestService.getAllDLists($scope.token).then(
 						function(success) {
 							var obj = success.data;
 							$scope.searchResultGroups = obj.data;

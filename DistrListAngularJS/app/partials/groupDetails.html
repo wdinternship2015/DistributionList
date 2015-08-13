@@ -56,13 +56,12 @@
 					<li style="list-style: none; margin:0" ng-repeat="worker in workers" ng-click="setMember(worker)">{{worker.descriptor}}</li>
 				</div>
 			</td>
-			<td>
+			<td valign="top">
 				<div ng-show="addMemberError" style="color: red">{{addMemberErrorMsg}}</div>
 			</td>
 		</tr>
 	</table>
 	<br> <br>
-	{{workers|json}}
 	<table class="table table-striped" style="width: auto;">
 
 		<thead>
@@ -78,7 +77,7 @@
 				checklist-model="selectedMembers.members" checklist-value="member"
 				ng-checked="memberMaster">
 			</td>
-			<td><a href="#" ng-click="showDetails = ! showDetails">{{member.name}}</a>
+			<td><a href="#" ng-click="showDetails = ! showDetails">{{member.descriptor}}</a>
 				<div ng-show="showDetails">
 					<p>{{member.org}}</p>
 					<button ng-click="viewMemberDetails(member)"> View Profile </button>
