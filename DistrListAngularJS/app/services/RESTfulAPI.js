@@ -2,8 +2,13 @@ angular.module('DistributionList').factory('RESTfulAPI',[function($http){
   
 	var api = {};
 	var SUV = {};
+
 	SUV["url"] = "https://i-98499343.workdaysuv.com";
+//	SUV["OAuthCID"] = "MjgxMDQ5NjctN2U0Ny00MDU1LWEyMTctNmE5OTU4Njg5MmQy";
+	
+//	SUV["url"] = "https://i-cde4440b.workdaysuv.com";
 	SUV["OAuthCID"] = "MjgxMDQ5NjctN2U0Ny00MDU1LWEyMTctNmE5OTU4Njg5MmQy";
+	
 	//var SUV = "https://i-7ad0de8d.workdaysuv.com";
 	//var SUV = "https://i-c3da750a.workdaysuv.com";
 	//var SUV = "https://i-98499343.workdaysuv.com";
@@ -27,6 +32,10 @@ angular.module('DistributionList').factory('RESTfulAPI',[function($http){
 	api.addMemberUrl = function(listId){
 		return SUV.url + "/ccx/internalapi/emailDList/v1/super/distributionList/" + listId + "?type=addMembers";
 	};
+	
+	api.DListByOwnerUrl = function(user) {
+		return SUV.url + "/ccx/internalapi/emailDList/v1/super/distributionList?facets=managedBy&managedBy=" + user;
+	}
 
 	return api;
 

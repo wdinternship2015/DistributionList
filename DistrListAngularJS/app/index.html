@@ -11,6 +11,7 @@
 <script type="text/javascript" src="resourceJS/angular-resource.js"></script>
 <script type="text/javascript" src="resourceJS/ui-bootstrap-tpls-0.13.0.min.js"></script>
 <script type="text/javascript" src="resourceJS/angular-idle.js"></script>
+<script type="text/javascript" src="resourceJS/angular-confirm.js"></script>
 <script type="text/javascript" src="bower_components/angular-mocks/angular-mocks.js"></script>
 <script type="text/javascript" src="bower_components/checklist-model/checklist-model.js"></script>
 <script type="text/javascript" src="bower_components/ngstorage/ngStorage.js"></script>
@@ -47,13 +48,31 @@
 	<div ng-include='"partials/idleLogout.html"'></div>
 	<div ng-include='"templates/header.html"'></div>
 	<div  id="index" ng-controller="mainCtrl">
-	<!--	<div ng-include='"partials/idleLogout.html"'></div> -->
 		<div ng-include='"partials/idleLogout.html"'></div>
 		<div ng-include src="sidebarUrl"></div>
-		<div class="container fill" style="padding:10px" ng-include src="viewUrl">
-		</div>
+		<div class="container fill" style="padding:10px" ng-include src="viewUrl"></div>
 	</div>
-	<!-- <div ng-include='"templates/footer.html"'></div>   -->	
+	<!-- <div ng-include='"templates/footer.html"'></div>   -->
+
+
+	<script type="text/ng-template" id="pickUser.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Pick a user to login as</h3>
+        </div>
+        <div class="modal-body" style="background-color:#fafafa">
+           <input type="text" style="height:30px; width:450px" ng-model="chosenName" ng-change="getUsers(chosenName)" required>
+			      <br><br>
+    	<div style="border: 1px solid darkblue;padding: 2px; width:250px; height: 150px;overflow-y: auto;" >
+			<li style="list-style: none; margin:0" ng-repeat="worker in workers" ng-click="setUser(worker)">{{worker.descriptor}}</li>
+		</div>      
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" id="modalOK" ng-click="ok()">OK</button>
+        </div>
+    </script>
+
+
 
 </body>
 

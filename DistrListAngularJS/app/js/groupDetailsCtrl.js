@@ -1,6 +1,7 @@
 angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, shareDataService, requestService, $log, $localStorage) {
 	$scope.thisGroup = shareDataService.getPickedGroup();
 	console.log("thisGroup.id: " + $scope.thisGroup.id);
+	var editFormValidated = true;
 	$scope.showGroupInfo = true;
 	$scope.showWorker = false;
 	//minimum string length needed for search workers
@@ -11,9 +12,8 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 			//add group id?
 			members :[]
 	};
-		
+	//get suggested member options for adding members	
 	$scope.getOptions = function(scope) {
-//		console.log("add Member param: " + $scope.addMember);
 		$scope.memberToAdd = "";
 		$scope.addMemberError = false;
 		if ($scope.memberName.length < minLength) {
@@ -32,7 +32,6 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 							$scope.showWorker = false;
 							$scope.addMemberError = true;
 							$scope.addMemberErrorMsg = "No member matching this description";
-
 						}
 					}, 
 				      function(error){
@@ -40,13 +39,13 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 				    }
 			);
 		}
-	}
+	};
 	
 	$scope.setMember = function(worker) {
 		$scope.memberName = worker.descriptor;
 		$scope.getOptions();
 		$scope.memberToAdd = worker;
-	}
+	};
 	
 //make REST call onload here to get distribution lists detail of thisGroup	
 	$scope.getDListDetails = function(scope)  {
@@ -78,11 +77,39 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 
 //make REST call to remove selectedMembers
 	$scope.saveGroupDetails = function(scope)  {
+		$scope.validNewName = ! $scope.thisGroup.name || ! $scope.thisGroup.name.length > 0;
+		$scope.validNewAlias = ! $scope.thisGroup.alias || ! $scope.thisGroup.alias.length > 0;
+		$scope.validNewDescrpt = ! $scope.thisGroup.description || ! $scope.thisGroup.description.length > 0;
+		editFormValidated = !($scope.validNewName || $scope.validNewAlias || $scope.validNewDescrpt);
+		
+		if (editFormValidated) {
+			
+			var editedGroup = {};
+			editedGroup["name"] = $scope.thisGroup.name;
+			editedGroup["alias"] = $scope.thisGroup.alias;
+			editedGroup["private"] = $scope.thisGroup.private;
+			editedGroup["description"] = $scope.thisGroup.description;
+			editedGroup["managedBy"] = [{"id":$scope.userId}];
+
+			//REST call go here to submit form 
+			requestService.editDistrList(editedGroup, $scope.thisGroup.id, $scope.token).then(
+					function(success) {
+						var obj = JSON.parse(success.data);
+						$scope.thisGroup = obj;
+						console.log("edit group success: " + success.data);
+						console.log("total: " + obj.total);
+					}, 
+				      function(error){
+						$scope.addGroupFail = true;
+						$scope.addGroupFailMsg = "Cannot create new group. \n" + error.data;
+				    }
+			);			
+		}
 		$scope.showGroupInfo = ! $scope.showGroupInfo;
 	};
 	
 	$scope.addMember = function(scope) {
-		if ($scope.memberToAdd.length !==0 /*&& $scope.memberToAdd.length > 0 && $scope.memberName && $scope.memberName.length > 0*/) {		
+		if ($scope.memberName && $scope.memberToAdd.length !==0 /*&& $scope.memberToAdd.length > 0 && $scope.memberName && $scope.memberName.length > 0*/) {		
 		
 			console.log("add member: " + $scope.memberName);
 			$scope.showWorker = false;
@@ -94,9 +121,18 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 				function(success) {
 					$scope.memberName = "";
 					$scope.memberToAdd = "";
-					$scope.thisGroup = JSON.parse(success.data);
+				//	$scope.thisGroup = JSON.parse(success.data);
 					console.log("members: " + $scope.thisGroup.members);
 					console.log("add member response: " + success.data);
+					requestService.getDList($scope.thisGroup.id, $scope.token).then(
+							function(success) {
+								$scope.thisGroup = JSON.parse(success.data);
+								console.log("refresh group details: " + success.data);
+							}, 
+						      function(error){
+						        console.log("getOptions failed");
+						    }
+					);
 				}, 
 			    function(error){
 					console.log("add members failed + " + error.data);
@@ -104,16 +140,7 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 					$scope.addMemberErrorMsg = error.data;
 			        console.log("show error: " + $scope.addMemberError + " msg: " + $scope.addMemberErrorMsg);
 			    }
-			);
-			requestService.getDList($scope.thisGroup.id, $scope.token).then(
-					function(success) {
-						$scope.thisGroup = JSON.parse(success.data);
-						console.log("refresh group details: " + success.data);
-					}, 
-				      function(error){
-				        console.log("getOptions failed");
-				    }
-			);
+			);			
 		} else if ($scope.memberName && $scope.memberName.length > 0 && $scope.memberToAdd.length == 0){
 			$scope.addMemberError = true;
 			$scope.addMemberErrorMsg = "Choose a member from the list";
@@ -121,6 +148,6 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 			$scope.addMemberError = true;
 			$scope.addMemberErrorMsg = "A name is required";
 		}
-	}
+	};
 	
 });

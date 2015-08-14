@@ -3,9 +3,10 @@ angular
 		.controller(
 				'sidebarCtrl',
 				function($scope, shareDataService, $log, $window, $location) {
-
+					
 					var pressed = "#66d9ff";
 					var released = "#007399";
+					//$scope.userLoggedin = $scope.loggedinUser;
 					document.getElementById("myDListBtn").style.background = pressed;
 					document.getElementById("searchDListBtn").style.background = released;
 					$scope.searchDList = function() {

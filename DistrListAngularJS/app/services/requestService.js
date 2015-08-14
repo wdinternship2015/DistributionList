@@ -1,18 +1,20 @@
 angular.module('DistributionList').factory('requestService',['$http', 'RESTfulAPI', function($http, RESTfulAPI){
-  var service = {};
-  service.getAllDLists = function(token){
-    var response = 
-      $http({
-        url: RESTfulAPI.DListUrl(),
-    	method: 'GET',
-        headers: {'Authorization': 'Bearer ' + token},
-        }).success(function(data, status, headers, config){
-        return data;
-      }).error(function(data, status, headers, config){
-        return data; 
-      });
-    return response;
-  };
+  
+	var service = {};
+  
+
+	service.getAllDLists = function(token) {
+		var response = $http({
+			url : RESTfulAPI.DListUrl(),
+			method : 'GET',
+			headers : {'Authorization' : 'Bearer ' + token},
+				}).success(function(data, status, headers, config) {
+					return data;
+				}).error(function(data, status, headers, config) {
+					return data;
+				});
+				return response;
+			};
   
   service.createDList = function(formData, token){
 	    var response = 
@@ -135,10 +137,10 @@ angular.module('DistributionList').factory('requestService',['$http', 'RESTfulAP
 	    return response;
   };
 
-  service.editDistrList = function(formData, token){
+  service.editDistrList = function(formData, listId, token){
 	    var response = 
 	      $http({
-	        url: RESTfulAPI.DListUrl(),
+	        url: RESTfulAPI.DListUrl() + "/" + listId,
 	        data: formData,
 	        method: 'PUT',
 	        transformResponse: function(data){
@@ -153,6 +155,22 @@ angular.module('DistributionList').factory('requestService',['$http', 'RESTfulAP
 	    return response;
   };
 
+  service.searchByOwners = function(user, token){
+	    var response = 
+	      $http({
+	        url: RESTfulAPI.DListByOwnerUrl(user),
+	        method: 'GET',
+	        transformResponse: function(data){
+	          return data;
+	        },
+	        headers: {'Authorization': 'Bearer ' + token}, 
+	      }).success(function(data, status, headers, config){
+	        return data;
+	      }).error(function(data, status, headers, config){
+	        return data;
+	      });
+	    return response;
+  };
   return service;
 
 }]);

@@ -5,7 +5,7 @@ angular.module('myDListModule').controller('memberOfCtrl', function ($scope, sha
 	  
 //make REST call here to get distribution lists I am a member of, , still using get all lists
 	$scope.getMemberOfGroups = function(scope)  {
-		requestService.getDLists($scope.token).then(
+		requestService.getAllDLists($scope.token).then(
 				function(success) {
 					var obj = success.data;
 					$scope.memberOfGroups = obj.data;

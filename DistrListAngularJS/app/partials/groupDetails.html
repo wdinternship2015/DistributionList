@@ -8,19 +8,22 @@
 
 	</div>
 	<div style="border: 2px solid darkblue;padding: 10px;" ng-show="! showGroupInfo">
-		<form name="createNewGroup" ng-init="thisGroup.visibility">
+		<form name="editGroup" ng-init="thisGroup.visibility">
 			<table>
 				<tr>
 					<td>Group Name:</td>
 					<td><input type="text" ng-model="thisGroup.name" value="thisGroup.name"></td>
+					<td><div ng-show="validNewName" style="color: red">Group name is required</div></td>
 				</tr>
 				<tr>
 					<td>Alias:</td>
 					<td><input type="text" ng-model="thisGroup.alias" value="thisGroup.alias"/></td>
+					<td><div ng-show="validNewAlias"  style="color: red">Alias is required</div></td>
 				</tr>
 				<tr>
 					<td>Description:</td>
 					<td><input type="text" ng-model="thisGroup.description" value="thisGroup.description"/></td>
+					<td><div ng-show="validNewDescrpt"  style="color: red">Description is required</div></td>
 				</tr>
 				<tr>
 					<td>Private:</td>

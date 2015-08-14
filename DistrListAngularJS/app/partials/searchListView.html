@@ -1,18 +1,24 @@
 
 <div ng-controller="searchListCtrl">
-	<div style="height: 40px;display:table-cell; vertical-align:middle" align="bottom" style="padding:10px" >
-	<ul class="nav navbar-nav navbar-center">
-		<li>
-			Search by: <select ng-init="searchBy = searchOptions[0]" ng-model="searchBy" ng-options="searchOption.option for searchOption in searchOptions"></select>
-		</li>
-		<li>
-			&nbsp matching <input type="text" ng-model="searchParam">
-		</li>
-		<li>
-			<button style="width:100px" ng-click="search()">Search</button>
-		</li>
-	</ul>
-
+	<div style="height: 40px;display:table-cell; vertical-align:middle"  style="padding:10px" >
+	<table>
+		<tr>
+			<td valign="top">Search by: </td>
+			<td valign="top"><select ng-init="searchBy = searchOptions[0]" ng-model="searchBy" ng-change="setSearchInputArea()" ng-options="searchOption.option for searchOption in searchOptions"></select></td>
+			<td valign="top">&nbsp matching </td>
+			<td valign="top">
+				<div ng-show="groupNameSearch"><input type="text" style="width: 200px" ng-model="searchParam"></div>
+				<div ng-show="ownerNameSearch"><input type="text" style="width: 200px"ng-model="ownerName" ng-change="getOwners(ownerName)">			      
+ 				   	<div style="border: 1px solid darkblue;padding: 2px; width:200px; max-height: 150px;overflow-y: auto;" ng-show="showOwner">
+						<li style="list-style: none; margin:0" ng-repeat="owner in owners" ng-click="setOwner(owner)">{{owner.descriptor}}</li>
+					</div>
+				</div>
+			</td>
+			<td valign="top">
+				<button style="width:100px" ng-click="search()">Search</button>
+			</td>
+		</tr>
+	</table>
 </div>
 	<div id="main" style="overflow-y: scroll;" >
      

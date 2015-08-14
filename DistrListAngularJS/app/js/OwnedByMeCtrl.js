@@ -1,19 +1,20 @@
-angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, shareDataService,requestService, $log, $localStorage) {
+angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, shareDataService,requestService, $log, $modal, $confirm/*, $localStorage*/) {
 	//$scope.$storage.token
 	$scope.showDetails = false;
 	$scope.showCreateNewGroup = false;
 	$scope.addGroupFail = false;
 	
-	console.log("ownedByMeCtrl reporting for duty. token: " + $scope.token);
+//	console.log("ownedByMeCtrl reporting for duty. token: " + $scope.token);
 	var formValidated = false;
 
 //make REST call here to get distribution lists owned by me, still using get all lists
 	$scope.getOwnedByMeGroups = function(scope)  {
 		console.log("get list");
-		requestService.getAllDLists($scope.token).then(
+		requestService.searchByOwners($scope.userId, $scope.token).then(
 				function(success) {
-					var obj = success.data;
+					var obj = JSON.parse(success.data);
 					$scope.ownedByMeGroups = obj.data;
+				//	console.log("success.data.data: " + $scope.ownedByMeGroups);
 				}, 
 			      function(error){
 					console.log("error: " + error.data);
@@ -23,7 +24,29 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 	
 //make REST call to delete selectedGroups
 	$scope.deleteMyGroups = function(scope)  {
-		
+		if ($scope.selectedGroups.groups.length < 1) {
+			return;
+		}
+		console.log("groups to delete: " + $scope.selectedGroups.groups.length);
+		var msg="";
+		angular.forEach($scope.selectedGroups.groups, function(item) {
+			msg += item.descriptor + ',   \n';
+		});
+		console.log("msg: " + msg);
+		$confirm({text: msg, title: 'Delete ' + $scope.selectedGroups.groups.length + ' groups?', ok: 'Delete', cancel: 'Cancel'})
+        .then(function() {
+        	angular.forEach($scope.selectedGroups.groups, function(item) {
+        		requestService.deleteDList(item.id, $scope.token).then(
+    				function(success) {
+    					console.log(success.data);
+    		        	$scope.getOwnedByMeGroups();
+    				}, 
+    			      function(error){
+    					console.log("error deleting: " + item.descriptor);
+    			    }
+        		);
+    		});
+        });		
 	};
 	
 	$scope.selectedGroups = {
@@ -52,7 +75,7 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 			aNewGroup["alias"] = $scope.aGroup.alias;
 			aNewGroup["private"] = $scope.aGroup.private;
 			aNewGroup["description"] = $scope.aGroup.description;
-			aNewGroup["managedBy"] = [{"id":"247$257"}];
+			aNewGroup["managedBy"] = [{"id":$scope.userId}];
 
 			//REST call go here to submit form 
 			requestService.createDList(aNewGroup, $scope.token).then(

@@ -2,10 +2,10 @@
  * DistributionList app definition and configuration
  */
 
-var app = angular.module('DistributionList', [ 'ngStorage', 'myDListModule', 'searchListModule' , 'ngIdle' , 'ui.bootstrap' ]);
+var app = angular.module('DistributionList', [ 'ngStorage', 'myDListModule', 'searchListModule' , 'ngIdle' , 'ui.bootstrap' , 'angular-confirm']);
 
-angular.module('myDListModule', [ 'ngStorage', 'checklist-model' ]);
-angular.module('searchListModule', [ 'ngStorage', 'checklist-model' ]);
+angular.module('myDListModule', [ 'ngStorage', 'checklist-model' , 'ui.bootstrap', 'angular-confirm']);
+angular.module('searchListModule', [ 'ngStorage', 'checklist-model' , 'ui.bootstrap', 'angular-confirm']);
 
 
 //idle logout config
