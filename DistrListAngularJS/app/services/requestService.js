@@ -54,7 +54,7 @@ angular.module('DistributionList').factory('requestService',['$http', 'RESTfulAP
   service.getWorkerDetails = function(id, token){
 	    var response = 
 	      $http({
-	        url: RESTfulAPI.workersUrl() + "?search=" + id,
+	        url: RESTfulAPI.workersUrl() + "/" + id,
 	        method: 'GET',
 	        transformResponse: function(data){
 	          return data;

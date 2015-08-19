@@ -57,17 +57,19 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 		
 	};
 	
-	$scope.viewMemberDetails = function(aMember) {
-		//REST call to get information of aMember
-		//shareDataService.setPickedMember(aMember);
-		//$scope.viewMember();
-		$scope.showWorker = true;
-		requestService.getWorkerDetails(encodeURI($scope.memberName), $scope.token).then(
+	$scope.viewMemberDetails = function(index, member) {
+		if ($scope.thisGroup.members[index].businessTitle) {
+			return;
+		}
+		requestService.getWorkerDetails($scope.thisGroup.members[index].id, $scope.token).then(
 				function(success) {
 					var obj = JSON.parse(success.data);
-					var numWorkers = obj.total;
-					$scope.workersTotal = numWorkers;
-					$scope.workers = obj.data;
+					if ($scope.thisGroup.members[index].id == obj.id) {
+						$scope.thisGroup.members[index]["businessTitle"] = obj.businessTitle;
+						$scope.thisGroup.members[index]["primaryWorkEmail"] = obj.primaryWorkEmail;
+						$scope.thisGroup.members[index]["primarySupervisoryOrganization"] = obj.primarySupervisoryOrganization.descriptor;
+						$scope.thisGroup.members[index]["primaryWorkAddressText"] = obj.primaryWorkAddressText;
+					}		
 				}, 
 			      function(error){
 			        console.log("getOptions failed");
@@ -94,18 +96,16 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 			//REST call go here to submit form 
 			requestService.editDistrList(editedGroup, $scope.thisGroup.id, $scope.token).then(
 					function(success) {
-						var obj = JSON.parse(success.data);
-						$scope.thisGroup = obj;
 						console.log("edit group success: " + success.data);
-						console.log("total: " + obj.total);
+						$scope.refreshGroupInfo();
 					}, 
 				      function(error){
 						$scope.addGroupFail = true;
 						$scope.addGroupFailMsg = "Cannot create new group. \n" + error.data;
 				    }
 			);			
+			$scope.showGroupInfo = ! $scope.showGroupInfo;
 		}
-		$scope.showGroupInfo = ! $scope.showGroupInfo;
 	};
 	
 	$scope.addMember = function(scope) {
@@ -121,18 +121,8 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 				function(success) {
 					$scope.memberName = "";
 					$scope.memberToAdd = "";
-				//	$scope.thisGroup = JSON.parse(success.data);
-					console.log("members: " + $scope.thisGroup.members);
 					console.log("add member response: " + success.data);
-					requestService.getDList($scope.thisGroup.id, $scope.token).then(
-							function(success) {
-								$scope.thisGroup = JSON.parse(success.data);
-								console.log("refresh group details: " + success.data);
-							}, 
-						      function(error){
-						        console.log("getOptions failed");
-						    }
-					);
+					$scope.refreshGroupInfo();
 				}, 
 			    function(error){
 					console.log("add members failed + " + error.data);
@@ -150,4 +140,17 @@ angular.module('myDListModule').controller('groupDetailsCtrl', function($scope, 
 		}
 	};
 	
+	$scope.refreshGroupInfo = function(scope) {
+		requestService.getDList($scope.thisGroup.id, $scope.token).then(
+				function(success) {
+					$scope.thisGroup = JSON.parse(success.data);
+					console.log("refresh group details: " + success.data);
+				}, 
+			      function(error){
+			        console.log("getOptions failed");
+			    }
+		);
+	};
+	
+	$scope.testMembers = {"members":[{"descriptor":"Tom Quinn","id":"c43bcfde6bb7100b57d2365310621c4f"}, {"descriptor":"June Jenkins","id":"c43bcfde6bb7100b57d62dec4a02246d"}]};
 });

@@ -2,7 +2,7 @@ angular
 		.module('DistributionList')
 		.controller(
 				'sidebarCtrl',
-				function($scope, shareDataService, $log, $window, $location) {
+				function($scope, $log, $window, $location) {
 					
 					var pressed = "#66d9ff";
 					var released = "#007399";
@@ -13,6 +13,7 @@ angular
 						document.getElementById("myDListBtn").style.background = released;
 						document.getElementById("searchDListBtn").style.background = pressed;
 						$scope.searchDListView();
+						$scope.defaultSearchView = true;
 					}
 					$scope.myDList = function() {
 						document.getElementById("myDListBtn").style.background = pressed;

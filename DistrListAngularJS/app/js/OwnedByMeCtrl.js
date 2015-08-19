@@ -14,7 +14,12 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 				function(success) {
 					var obj = JSON.parse(success.data);
 					$scope.ownedByMeGroups = obj.data;
-				//	console.log("success.data.data: " + $scope.ownedByMeGroups);
+					var myLists = [];
+					angular.forEach(obj.data, function(item) {
+						myLists.push(item.id);
+					});
+					shareDataService.setMyListStr(myLists.toString());
+					console.log("myLists.toString: " + shareDataService.getMyListStr());
 				}, 
 			      function(error){
 					console.log("error: " + error.data);
@@ -34,18 +39,18 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 		});
 		console.log("msg: " + msg);
 		$confirm({text: msg, title: 'Delete ' + $scope.selectedGroups.groups.length + ' groups?', ok: 'Delete', cancel: 'Cancel'})
-        .then(function() {
-        	angular.forEach($scope.selectedGroups.groups, function(item) {
-        		requestService.deleteDList(item.id, $scope.token).then(
-    				function(success) {
-    					console.log(success.data);
-    		        	$scope.getOwnedByMeGroups();
-    				}, 
-    			      function(error){
-    					console.log("error deleting: " + item.descriptor);
-    			    }
-        		);
-    		});
+	        .then(function() {
+	        	angular.forEach($scope.selectedGroups.groups, function(item) {
+	        		requestService.deleteDList(item.id, $scope.token).then(
+	    				function(success) {
+	    					console.log(success.data);
+	    		        	$scope.getOwnedByMeGroups();
+	    				}, 
+	    			      function(error){
+	    					console.log("error deleting: " + item.descriptor);
+	    			    }
+	        		);
+	    		});
         });		
 	};
 	
@@ -59,9 +64,9 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 		formValidated = false;
 	};
 
-	/*
-	 * Add new group functons
-	 */
+/*
+ * Add new group functons
+ */
 	$scope.addNewGroup = function(scope) {
 		$scope.validName = ! $scope.aGroup.name || ! $scope.aGroup.name.length > 0;
 		$scope.validAlias = ! $scope.aGroup.alias || ! $scope.aGroup.alias.length > 0;
@@ -96,14 +101,14 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 	
 	$scope.resetNewGroupForm = function(scope) {
 		if ($scope.aGroup){
-		$scope.aGroup.name = "";
-		$scope.aGroup.alias = "";
-		$scope.aGroup.description = "";
-		$scope.validName = false;
-		$scope.validAlias = false;
-		$scope.validDescrpt = false;
-		formValidated = false;
-		$scope.addGroupFail = false;
+			$scope.aGroup.name = "";
+			$scope.aGroup.alias = "";
+			$scope.aGroup.description = "";
+			$scope.validName = false;
+			$scope.validAlias = false;
+			$scope.validDescrpt = false;
+			formValidated = false;
+			$scope.addGroupFail = false;
 		}
 	};
 	
@@ -115,10 +120,9 @@ angular.module('myDListModule').controller('ownedByMeCtrl', function($scope, sha
 		$scope.resetNewGroupForm();
 		$scope.showCreateNewGroup = ! $scope.showCreateNewGroup;				
 	};
-	//end add new group functions
+//end add new group functions
 	
 	$scope.editGroupDetails = function(aGroup) {
-		//REST call to get information by aGroup.id
 		shareDataService.setPickedGroup(aGroup);
 		$scope.manageGroup();
 	};

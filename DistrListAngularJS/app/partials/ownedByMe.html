@@ -67,8 +67,16 @@
 		  	<td><input type="checkbox" checklist-model="selectedGroups.groups" checklist-value="group" ng-checked="master"></td>
 		  	<td><a href="#" ng-click="showDetails = ! showDetails">{{group.name}} </a>
 		  		<div ng-show="showDetails">
-		  			<p>{{group.alias}}</p>
-		  			<p>{{group.description}}</p>
+		  		<table style="border-collapse: separate; border-spacing: 5px;">
+						<tr>
+							<th valign="top">Alias: </th>
+							<td>   {{group.alias}}</td>
+						</tr>
+						<tr>
+							<th valign="top">Description: </th>
+							<td >   {{group.description}}</td>
+						</tr>
+					</table>
 		  			<p><button ng-click="editGroupDetails(group)"> Manage </button></p>
 		  		</div>
 		  	</td>

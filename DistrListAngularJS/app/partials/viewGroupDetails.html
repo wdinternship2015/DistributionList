@@ -1,0 +1,53 @@
+<div ng-init="getGroupDetails()" >
+
+	<div >
+		<h3>{{thisGroup.name}} </h3>    		
+		<h5>{{thisGroup.alias}}</h5>
+		<p>{{thisGroup.description}}</p>
+		<p>{{thisGroup.private | privacy}}</p>
+		<label>Managed by: </label>
+		<ul ng-repeat="member in thisGroup.managedBy">
+			<li> {{member.descriptor}}</li>
+		</ul>
+
+	</div>
+
+	<br>
+	<br> <br>
+	<table class="table table-striped" style="width: auto;">
+
+		<thead>
+			<tr>
+				<th class="col-sm-4"><label>Members</label></th>
+			</tr>
+		</thead>
+		<tr ng-repeat="member in thisGroup.members">
+			<td><a href="#" ng-click="viewMemberDetails($index, member); showMemberDetails = ! showMemberDetails">{{member.descriptor}}</a>
+				<div ng-show="showMemberDetails" >
+					<table  style="border-collapse: separate; border-spacing: 5px;">
+						<tr>
+							<th valign="top">Title: </th>
+							<td>{{member.businessTitle}}</td>
+						</tr>
+						<tr>
+							<th valign="top">Email: </th>
+							<td>{{member.primaryWorkEmail}}</td>
+						</tr>
+						<tr>
+							<th valign="top">Organization: </th>
+							<td>{{member.primarySupervisoryOrganization}}</td>
+						</tr>
+						<tr>
+							<th valign="top">Location: </th>
+							<td>{{member.primaryWorkAddressText}}</td>
+						</tr>
+						
+					</table>
+	<!--			<button ng-click="viewMemberDetails(member)"> View Profile </button>  -->	
+				</div>
+			</td>
+		</tr>
+	</table>
+	
+	<button ng-click="viewSearchResult()">Back to search results</button>
+</div>

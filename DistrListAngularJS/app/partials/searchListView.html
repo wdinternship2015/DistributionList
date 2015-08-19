@@ -1,5 +1,7 @@
 
 <div ng-controller="searchListCtrl">
+<div ng-include='"partials/viewGroupDetails.html"' ng-show="! defaultSearchView"></div>
+<div ng-show="defaultSearchView">
 	<div style="height: 40px;display:table-cell; vertical-align:middle"  style="padding:10px" >
 	<table>
 		<tr>
@@ -30,7 +32,8 @@
 		<tr>
 			<th class="col-sm-1"><!--  <input type="checkbox" ng-model="master">&nbsp-->
 				<button ng-click="subscribeGroups()">Subscribe</button></th>
-			<th class="col-sm-3"><label>Group Name</label></th>
+			<th class="col-sm-3">Group Name</th>
+			<th class="col-sm-3">Relation</th>
 			<th class="col-sm-1">Visibility</th>
 		</tr>
 		</thead>
@@ -38,14 +41,17 @@
 		  	<td><input type="checkbox" checklist-model="selectedGroups.groups" checklist-value="group" ng-checked="master"></td>
 		  	<td><a href="#" ng-click="showDetails = ! showDetails">{{group.name}} </a>
 		  		<div ng-show="showDetails">
+		  			<p>{{group.alias}}</p>
 		  			<p>{{group.descriptor}}</p>
-		  			<p><button > Something? </button></p>
+		  			<p><button ng-click="viewGroupDetails(group)"> View Details </button></p>
 		  		</div>
 		  	</td>
+		  	<td>{{group.relation}}</td>
 		  	<td>{{group.private | privacy}}</td>
 	  	</tr>
 	</table>
      
  </div>
+</div>
 </div>
 <!-- /.container -->

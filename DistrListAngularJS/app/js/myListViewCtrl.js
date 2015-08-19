@@ -1,4 +1,4 @@
-angular.module('myDListModule').controller('myListViewCtrl', function($scope, shareDataService, $log) {
+angular.module('myDListModule').controller('myListViewCtrl', function($scope, $log) {
 	var pressed = "#66d9ff";
 	var released = "#007399";
 	document.getElementById("ownedByMeBtn").style.background = pressed;
@@ -16,7 +16,7 @@ angular.module('myDListModule').controller('myListViewCtrl', function($scope, sh
 		document.getElementById("memberOfBtn").style.background = pressed;
 	  }	
 	  $scope.manageGroup = function() {
-			$scope.contentUrl = 'partials/groupDetails.html';
+			$scope.contentUrl = 'partials/myGroupDetails.html';
 		 }
 
 });

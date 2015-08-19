@@ -1,16 +1,24 @@
  angular.module('DistributionList').factory('shareDataService', function() {
-	 var savedData = {
-           
-          };
-	 
-	 var set = function (data) {
-	   savedData = data;
+
+	 var myListStr;	 
+	 var setMyListStr = function (data) {
+		 myListStr = data;
 	 };
 	 
-	 var get = function () {
-	  return savedData;
+	 var getMyListStr = function () {
+	  return myListStr;
 	 };
 
+	 var memberOfStr;	 
+	 var setMemberOfStr = function (data) {
+		 memberOfStr = data;
+	 };
+	 
+	 var getMemberOfStr = function () {
+	  return memberOfStr;
+	 };
+
+	 
 	 var pickedGroup = {};
 	 var setPickedGroup = function (data) {
 		 pickedGroup = data;
@@ -26,25 +34,17 @@
 	 var getSearchResult = function () {
 	  return searchResult;
 	 };
+	 	 
 	 
-	 var token;
-	 
-	 var setToken = function (data) {
-	   token = data;
-	 };
-	 
-	 var getToken = function () {
-	  return token;
-	 };
 	 return {
-	  set: set,
-	  get: get,
-	  setPickedGroup: setPickedGroup,
-	  getPickedGroup: getPickedGroup,
-	  setSearchResult: setSearchResult,
-	  getSearchResult: getSearchResult,
-	  setToken: setToken,
-	  getToken: getToken,
+		 setMyListStr: setMyListStr,
+		 getMyListStr: getMyListStr,
+		 setMemberOfStr: setMemberOfStr,
+		 getMemberOfStr: getMemberOfStr,
+		 setPickedGroup: setPickedGroup,
+		 getPickedGroup: getPickedGroup,
+		 setSearchResult: setSearchResult,
+		 getSearchResult: getSearchResult,
 	 }
 	 
 });
